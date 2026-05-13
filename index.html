@@ -28,30 +28,28 @@ body { font-family:var(--font); background:var(--bg); min-height:100dvh; color:v
 @keyframes orb2 { from{transform:translate(0,0);} to{transform:translate(20px,-15px);} }
 .hero-badge { display:inline-block; background:var(--coral); color:#fff; font-size:0.65rem; font-weight:900; letter-spacing:0.2em; padding:4px 12px; border-radius:20px; margin-bottom:14px; text-transform:uppercase; }
 .hero-title { font-size:2.4rem; font-weight:900; letter-spacing:0.04em; line-height:1; background:linear-gradient(135deg,var(--coral),var(--orange),var(--yellow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.hero-sub { font-size:0.78rem; color:var(--text2); margin-top:8px; letter-spacing:0.04em; }
+.hero-sub { font-size:0.78rem; color:var(--text2); margin-top:8px; }
 .setup-tabs { display:flex; background:var(--surface); border-bottom:1px solid var(--border); }
-.setup-tab { flex:1; padding:13px 8px; border:none; border-bottom:2px solid transparent; background:none; font-family:var(--font); font-size:0.78rem; font-weight:800; color:var(--text3); cursor:pointer; transition:all 0.2s; letter-spacing:0.04em; text-transform:uppercase; }
+.setup-tab { flex:1; padding:13px 8px; border:none; border-bottom:2px solid transparent; background:none; font-family:var(--font); font-size:0.78rem; font-weight:800; color:var(--text3); cursor:pointer; transition:all 0.2s; text-transform:uppercase; }
 .setup-tab.active { color:var(--coral); border-bottom-color:var(--coral); }
 .setup-body { padding:18px 18px 100px; display:flex; flex-direction:column; gap:10px; }
 .slot-header { display:flex; align-items:center; justify-content:space-between; padding:0 2px; margin-bottom:2px; }
 .slot-header-label { font-size:0.68rem; color:var(--text3); font-weight:800; letter-spacing:0.12em; text-transform:uppercase; }
 .task-count-badge { font-size:0.68rem; color:var(--cyan); background:rgba(56,232,216,0.1); padding:3px 10px; border-radius:20px; border:1px solid rgba(56,232,216,0.25); font-weight:800; }
-.task-slot { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 14px; display:flex; align-items:center; gap:10px; transition:border-color 0.2s,box-shadow 0.2s; }
+.task-slot { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 14px; display:flex; align-items:center; gap:10px; }
 .task-slot:focus-within { border-color:var(--coral); box-shadow:0 0 0 3px rgba(255,95,109,0.12); }
 .slot-pill { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 .slot-name-input { flex:1; background:none; border:none; outline:none; font-family:var(--font); font-size:0.9rem; font-weight:800; color:var(--text); }
 .slot-name-input::placeholder { color:var(--text3); font-weight:700; }
 .slot-pct-badge { font-size:0.65rem; color:var(--cyan); background:rgba(56,232,216,0.08); padding:2px 8px; border-radius:20px; border:1px solid rgba(56,232,216,0.2); white-space:nowrap; flex-shrink:0; font-weight:800; }
-.slot-delete { width:22px; height:22px; border-radius:50%; border:1px solid var(--border); background:none; color:var(--text3); font-size:0.75rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; }
+.slot-delete { width:22px; height:22px; border-radius:50%; border:1px solid var(--border); background:none; color:var(--text3); font-size:0.75rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .slot-delete:active { background:var(--coral); color:#fff; border-color:var(--coral); }
-.add-task-btn { border:1.5px dashed rgba(255,255,255,0.15); border-radius:14px; padding:12px; background:none; color:var(--text3); font-family:var(--font); font-size:0.82rem; font-weight:800; cursor:pointer; letter-spacing:0.06em; transition:all 0.2s; width:100%; text-transform:uppercase; }
-.add-task-btn:active { border-color:var(--lime); color:var(--lime); }
+.add-task-btn { border:1.5px dashed rgba(255,255,255,0.15); border-radius:14px; padding:12px; background:none; color:var(--text3); font-family:var(--font); font-size:0.82rem; font-weight:800; cursor:pointer; width:100%; text-transform:uppercase; }
 .add-task-btn:disabled { opacity:0.25; cursor:not-allowed; }
 .start-wrap { position:fixed; bottom:0; left:0; right:0; padding:14px 18px 28px; background:linear-gradient(to top,var(--bg) 70%,transparent); z-index:20; }
-.start-btn { width:100%; padding:17px; border:none; border-radius:14px; background:linear-gradient(135deg,var(--coral),var(--orange)); color:#fff; font-family:var(--font); font-size:1rem; font-weight:900; letter-spacing:0.12em; cursor:pointer; text-transform:uppercase; box-shadow:0 6px 24px rgba(255,95,109,0.45); transition:transform 0.1s; position:relative; overflow:hidden; }
+.start-btn { width:100%; padding:17px; border:none; border-radius:14px; background:linear-gradient(135deg,var(--coral),var(--orange)); color:#fff; font-family:var(--font); font-size:1rem; font-weight:900; letter-spacing:0.12em; cursor:pointer; text-transform:uppercase; box-shadow:0 6px 24px rgba(255,95,109,0.45); position:relative; overflow:hidden; }
 .start-btn::after { content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent); animation:shimmer 2.5s ease-in-out infinite; }
 @keyframes shimmer { to{left:150%;} }
-.start-btn:active { transform:scale(0.98); }
 #tracker-screen { background:var(--bg); position:relative; overflow:hidden; }
 #tracker-screen::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 20% 80%,rgba(184,240,80,0.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,95,109,0.08) 0%,transparent 50%); }
 #tracker-screen::after { content:''; position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size:40px 40px; }
@@ -61,8 +59,8 @@ body { font-family:var(--font); background:var(--bg); min-height:100dvh; color:v
 .progress-text { font-size:1.1rem; font-weight:900; background:linear-gradient(135deg,var(--coral),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .progress-sub { font-size:0.58rem; color:var(--text3); font-weight:800; letter-spacing:0.1em; text-transform:uppercase; }
 .nav-btn { background:none; border:1px solid var(--border); border-radius:8px; color:var(--text2); font-family:var(--font); font-size:0.68rem; font-weight:800; padding:6px 10px; cursor:pointer; }
-.finish-btn { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); padding:13px 34px; border:none; border-radius:40px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:var(--text2); font-family:var(--font); font-size:0.78rem; font-weight:800; letter-spacing:0.1em; cursor:pointer; z-index:10; white-space:nowrap; backdrop-filter:blur(8px); text-transform:uppercase; transition:transform 0.1s,border-color 0.2s; }
-.finish-btn:active { transform:translateX(-50%) scale(0.97); border-color:var(--coral); }
+.finish-btn { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); padding:13px 34px; border:1px solid rgba(255,255,255,0.15); border-radius:40px; background:rgba(255,255,255,0.06); color:var(--text2); font-family:var(--font); font-size:0.78rem; font-weight:800; letter-spacing:0.1em; cursor:pointer; z-index:10; white-space:nowrap; backdrop-filter:blur(8px); text-transform:uppercase; }
+.finish-btn:active { border-color:var(--coral); }
 #bubble-field { position:absolute; inset:0; width:100%; height:100%; }
 .bubble { position:absolute; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:transform 0.12s; user-select:none; -webkit-tap-highlight-color:transparent; text-align:center; padding:14px; }
 .bubble:active { transform:scale(0.91) !important; }
@@ -94,7 +92,7 @@ body { font-family:var(--font); background:var(--bg); min-height:100dvh; color:v
 .hist-title { font-size:1.2rem; font-weight:900; color:var(--text); letter-spacing:0.08em; text-transform:uppercase; }
 .hist-sub { font-size:0.68rem; color:var(--text3); font-weight:800; }
 .tab-row { display:flex; }
-.tab-btn { flex:1; padding:10px 4px; border:none; border-bottom:2px solid transparent; background:none; font-family:var(--font); font-size:0.7rem; font-weight:800; color:var(--text3); cursor:pointer; transition:all 0.2s; letter-spacing:0.06em; text-transform:uppercase; }
+.tab-btn { flex:1; padding:10px 4px; border:none; border-bottom:2px solid transparent; background:none; font-family:var(--font); font-size:0.7rem; font-weight:800; color:var(--text3); cursor:pointer; transition:all 0.2s; text-transform:uppercase; }
 .tab-btn.active { color:var(--coral); border-bottom-color:var(--coral); }
 .hist-body { padding:18px; display:flex; flex-direction:column; gap:20px; }
 .summary-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 18px; display:flex; align-items:center; gap:14px; position:relative; overflow:hidden; }
@@ -126,7 +124,7 @@ body { font-family:var(--font); background:var(--bg); min-height:100dvh; color:v
 .empty-st { text-align:center; padding:48px 20px; color:var(--text3); }
 .empty-st .ei { font-size:2.4rem; display:block; margin-bottom:12px; }
 .empty-st p { font-size:0.82rem; line-height:1.9; }
-.back-btn { margin:0 18px 28px; padding:13px; border:1px solid var(--border); border-radius:12px; background:none; color:var(--text2); font-family:var(--font); font-size:0.78rem; font-weight:800; cursor:pointer; width:calc(100% - 36px); letter-spacing:0.06em; text-transform:uppercase; }
+.back-btn { margin:0 18px 28px; padding:13px; border:1px solid var(--border); border-radius:12px; background:none; color:var(--text2); font-family:var(--font); font-size:0.78rem; font-weight:800; cursor:pointer; width:calc(100% - 36px); text-transform:uppercase; }
 </style>
 </head>
 <body>
@@ -226,71 +224,96 @@ function saveRecord(pct,doneArr){
   save(data);
 }
 const DEFAULT_NAMES=['朝ごはんを抜く','水を2L飲む','30分以上歩く','夜21時以降食べない','寝る前ストレッチ'];
-let taskNames=[...DEFAULT_NAMES];
+
+// タスク名をオブジェクト配列で管理（インデックスずれを防ぐ）
+let taskList=[
+  {id:0,name:'朝ごはんを抜く'},
+  {id:1,name:'水を2L飲む'},
+  {id:2,name:'30分以上歩く'},
+  {id:3,name:'夜21時以降食べない'},
+  {id:4,name:'寝る前ストレッチ'},
+];
+let nextId=5;
+
+function calcPct(n){return Math.floor(100/n);}
 function calcPctForIdx(i,n){const base=Math.floor(100/n);return i===n-1?base+(100-base*n):base;}
+
 function initSetup(){
   const saved=load();
-  taskNames=(saved.tasks&&saved.tasks.length>0)?saved.tasks.map(t=>t.name):[...DEFAULT_NAMES];
+  if(saved.tasks&&saved.tasks.length>0){
+    taskList=saved.tasks.map((t,i)=>({id:i,name:t.name}));
+    nextId=taskList.length;
+  }
   renderSlots();
 }
-function saveCurrentInputs(){
-  document.querySelectorAll('.slot-name-input').forEach((el,i)=>{if(i<taskNames.length)taskNames[i]=el.value;});
-}
+
 function renderSlots(){
   const c=document.getElementById('task-slots');
   c.innerHTML='';
-  const n=taskNames.length;
-  taskNames.forEach((name,i)=>{
+  const n=taskList.length;
+  taskList.forEach((task,i)=>{
     const el=document.createElement('div');
     el.className='task-slot';
+    el.dataset.id=task.id;
     el.innerHTML=`
       <div class="slot-pill" style="background:${BSTYLES[i%BSTYLES.length].hex}"></div>
-      <input type="text" class="slot-name-input" value="${name}" placeholder="タスク名を入力" maxlength="14">
+      <input type="text" class="slot-name-input" value="${task.name}" placeholder="タスク名を入力" maxlength="14" data-id="${task.id}">
       <span class="slot-pct-badge">${calcPctForIdx(i,n)}%</span>
-      ${n>1?`<button class="slot-delete" onclick="deleteTask(${i})">×</button>`:''}
+      ${n>1?`<button class="slot-delete" data-id="${task.id}" onclick="deleteTask(${task.id})">×</button>`:''}
     `;
     const input=el.querySelector('input');
+    // 入力のたびにtaskListを更新
+    input.addEventListener('input',(e)=>{
+      const tid=parseInt(e.target.dataset.id);
+      const t=taskList.find(x=>x.id===tid);
+      if(t)t.name=e.target.value;
+    });
     input.addEventListener('keydown',(e)=>{
       if(e.key==='Enter'){
         e.preventDefault();
         const all=document.querySelectorAll('.slot-name-input');
-        if(i<all.length-1){all[i+1].focus();}else{input.blur();}
+        const idx=Array.from(all).indexOf(e.target);
+        if(idx<all.length-1){all[idx+1].focus();}else{e.target.blur();}
       }
     });
-    input.addEventListener('change',()=>{taskNames[i]=input.value;});
-    input.addEventListener('input',()=>{taskNames[i]=input.value;});
     c.appendChild(el);
   });
   document.getElementById('count-badge').textContent=`${n} / 10`;
   document.getElementById('add-btn').disabled=n>=10;
 }
+
 function addTask(){
-  if(taskNames.length>=10)return;
-  taskNames.push('');
+  if(taskList.length>=10)return;
+  taskList.push({id:nextId++,name:''});
   renderSlots();
-  document.querySelectorAll('.slot-name-input')[taskNames.length-1].focus();
+  document.querySelectorAll('.slot-name-input')[taskList.length-1].focus();
 }
-function deleteTask(i){
-  if(taskNames.length<=1)return;
-  taskNames.splice(i,1);
+
+function deleteTask(id){
+  if(taskList.length<=1)return;
+  taskList=taskList.filter(t=>t.id!==id);
   renderSlots();
 }
+
 function showSetupTab(idx){
   document.querySelectorAll('.setup-tab').forEach((b,i)=>b.classList.toggle('active',i===idx));
 }
+
 let tasks=[];
 let done=[];
+
 function startTracker(){
-  const inputs=document.querySelectorAll('.slot-name-input');
-  const n=inputs.length;
-  tasks=[];
-  inputs.forEach((el,i)=>{tasks.push({name:el.value.trim()||`タスク${i+1}`,pct:calcPctForIdx(i,n)});});
+  const n=taskList.length;
+  tasks=taskList.map((t,i)=>({
+    name:t.name.trim()||`タスク${i+1}`,
+    pct:calcPctForIdx(i,n)
+  }));
   const data=load();data.tasks=tasks;save(data);
-  taskNames=tasks.map(t=>t.name);
   done=new Array(tasks.length).fill(false);
   renderBubbles();
   showScreen('tracker-screen');
 }
+
 function renderBubbles(){
   const field=document.getElementById('bubble-field');
   field.innerHTML='';
@@ -313,6 +336,7 @@ function renderBubbles(){
   });
   updateProgress();
 }
+
 function getPositions(n,W,H,minR,maxR){
   const hh=62,mg=16,bh=72;
   const pos=[];let att=0;
@@ -328,6 +352,7 @@ function getPositions(n,W,H,minR,maxR){
   while(pos.length<n){const i=pos.length;pos.push({x:cx[i%cx.length]*W,y:hh+cy[i%cy.length]*(H-hh-bh),r:minR});}
   return pos;
 }
+
 function popBubble(i,cx,cy,style){
   if(done[i])return;
   done[i]=true;
@@ -348,14 +373,17 @@ function popBubble(i,cx,cy,style){
   el.classList.add('popping');
   setTimeout(()=>{el.style.display='none';updateProgress();checkComplete();},460);
 }
+
 function updateProgress(){
   const doneCount=done.filter(Boolean).length;
   const pct=Math.round((doneCount/tasks.length)*100);
   document.getElementById('progress-text').textContent=`${pct}%`;
   document.getElementById('progress-sub').textContent=`${doneCount}/${tasks.length} done`;
 }
+
 function checkComplete(){if(done.every(Boolean))setTimeout(()=>showComplete(),600);}
 function finishNow(){showComplete();}
+
 function showComplete(){
   const doneCount=done.filter(Boolean).length;
   const pct=Math.round((doneCount/tasks.length)*100);
@@ -368,6 +396,7 @@ function showComplete(){
   document.getElementById('complete-msg').innerHTML=msgs[Math.floor(Math.random()*msgs.length)].replace(/\n/g,'<br>');
   showScreen('complete-screen');
 }
+
 let currentTab='week';
 function switchTab(tab){
   currentTab=tab;
@@ -375,6 +404,7 @@ function switchTab(tab){
   document.getElementById(`tab-${tab}`).classList.add('active');
   renderHistory();
 }
+
 function renderHistory(){
   const data=load();
   const records=data.records||[];
@@ -423,6 +453,7 @@ function renderHistory(){
   });
   body.appendChild(list);
 }
+
 function fmtD(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function fmtLbl(s){const d=parseD(s);return `${d.getMonth()+1}/${d.getDate()}\n${WEEKDAYS[d.getDay()]}`;}
 function parseD(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
