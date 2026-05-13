@@ -303,7 +303,20 @@ let nextId=5;
 
 function calcPctForIdx(i,n){const base=Math.floor(100/n);return i===n-1?base+(100-base*n):base;}
 
-  function initSetup(){
+// リセットボタン
+document.addEventListener('DOMContentLoaded',()=>{
+  const btn=document.createElement('button');
+  btn.textContent='🗑️ データリセット';
+  btn.style.cssText='position:fixed;bottom:80px;right:16px;z-index:999;padding:8px 14px;background:#ff5f6d;color:#fff;border:none;border-radius:10px;font-size:0.75rem;font-weight:800;cursor:pointer;';
+  btn.onclick=()=>{
+    if(confirm('データを全部消しますか？')){
+      localStorage.removeItem('burnit_v2');
+      location.reload();
+    }
+  };
+  document.body.appendChild(btn);
+}); 
+    function initSetup(){
   const saved=load();
   if(saved.tasks&&saved.tasks.length>0){
     taskList=saved.tasks.map((t,i)=>({id:i,name:t.name}));
