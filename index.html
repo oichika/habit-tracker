@@ -303,19 +303,43 @@ let nextId=5;
 
 function calcPctForIdx(i,n){const base=Math.floor(100/n);return i===n-1?base+(100-base*n):base;}
 
-// リセットボタン
+// リセットボタン群
 document.addEventListener('DOMContentLoaded',()=>{
-  const btn=document.createElement('button');
-  btn.textContent='🗑️ データリセット';
-  btn.style.cssText='position:fixed;bottom:80px;right:16px;z-index:999;padding:8px 14px;background:#ff5f6d;color:#fff;border:none;border-radius:10px;font-size:0.75rem;font-weight:800;cursor:pointer;';
-  btn.onclick=()=>{
-    if(confirm('データを全部消しますか？')){
+  // 設定画面の一番下に追加
+  const setupBody=document.getElementById('task-slots').parentElement;
+  const wrap=document.createElement('div');
+  wrap.style.cssText='display:flex;flex-direction:column;gap:8px;margin-top:8px;padding-bottom:20px;';
+
+  // 今日だけやり直す
+  const btn1=document.createElement('button');
+  btn1.innerHTML='🔄 今日だけやり直す';
+  btn1.style.cssText='padding:12px;border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;background:none;color:#a0a0c0;font-family:inherit;font-size:0.8rem;font-weight:800;cursor:pointer;letter-spacing:0.06em;';
+  btn1.onclick=()=>{
+    if(confirm('今日の記録だけ消してやり直しますか？\n過去の記録は残ります。')){
+      const d=JSON.parse(localStorage.getItem('burnit_v2'))||{tasks:null,records:[]};
+      const today=new Date();
+      const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      d.records=(d.records||[]).filter(r=>r.date!==todayStr);
+      localStorage.setItem('burnit_v2',JSON.stringify(d));
+      location.reload();
+    }
+  };
+
+  // 全データリセット
+  const btn2=document.createElement('button');
+  btn2.innerHTML='🗑️ 全データをリセット';
+  btn2.style.cssText='padding:12px;border:1.5px solid rgba(255,95,109,0.3);border-radius:12px;background:none;color:#ff5f6d;font-family:inherit;font-size:0.8rem;font-weight:800;cursor:pointer;letter-spacing:0.06em;';
+  btn2.onclick=()=>{
+    if(confirm('全ての記録を消します。\nこの操作は元に戻せません。本当にいいですか？')){
       localStorage.removeItem('burnit_v2');
       location.reload();
     }
   };
-  document.body.appendChild(btn);
-}); 
+
+  wrap.appendChild(btn1);
+  wrap.appendChild(btn2);
+  setupBody.appendChild(wrap);
+});
     function initSetup(){
   const saved=load();
   if(saved.tasks&&saved.tasks.length>0){
