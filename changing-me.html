@@ -357,7 +357,7 @@ function initSetup(){
   const lastKey=keys[keys.length-1];
   const lastTasks=lastKey&&data[lastKey]&&data[lastKey].tasks?data[lastKey].tasks:[];
   taskList={};nextId=1;
- if(false){
+ if(lastTasks.length>0){
     lastTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
   }else{
     DEFAULT_TASKS.forEach(name=>{const id='t'+nextId++;taskList[id]={name,done:false};});
@@ -451,10 +451,9 @@ function renderBubbles(){
   };
  const addSizes=[0.82,0.72,0.88,0.68,0.92,0.75,0.65];
   const pat=ids.map(id=>{
-    const name=taskList[id].name||'';
-    if(DEFAULT_TASKS.includes(name))return 1.0;
-    const hash=name.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
-    return addSizes[hash%addSizes.length];
+    const name=taskList[id].name.trim()||'';
+    if(['ストレッチ','寝る前に今日できたことを見直す','今日の自分をほめる'].includes(name))return 1.0;
+    return addSizes[Math.floor(Math.random()*addSizes.length)];
   });
   ids.forEach((id,i)=>{
     const t=taskList[id];
