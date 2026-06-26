@@ -457,7 +457,7 @@ function renderBubbles(){
     div.addEventListener('click',()=>openMemo(id,div));
     area.appendChild(div);
   });
-}
+
   ids.forEach((id,i)=>{
     const t=taskList[id];
     const sz=Math.max(60,Math.round(baseSize*pat[i]));
