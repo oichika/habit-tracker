@@ -357,9 +357,9 @@ function initSetup(){
   // 今日の記録があってもセットアップ画面を表示（タスクはdone状態リセットして引き継ぎ）
   const keys=Object.keys(data).filter(k=>k!=='__settings'&&k!=='__goal'&&k!=='__goalHistory').sort();
   const lastKey=keys[keys.length-1];
-  const lastTasks=[];
+  const lastTasks=lastKey&&data[lastKey]&&data[lastKey].tasks?data[lastKey].tasks:[];
   taskList={};nextId=1;
-  if(lastTasks.length>0){
+ if(false){
     lastTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
   }else{
     DEFAULT_TASKS.forEach(name=>{const id='t'+nextId++;taskList[id]={name,done:false};});
