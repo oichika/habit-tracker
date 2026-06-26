@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,189 +6,214 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>BURN IT!</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
+<title>Changing Me</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#0f0f1a;--surface:#1a1a2e;--card:#22223a;--border:rgba(255,255,255,0.08);
-  --cyan:#00e5ff;--pink:#ff4db8;--orange:#ff9a3c;--yellow:#ffe234;--green:#39ff14;--purple:#c77dff;
-  --text:#f0f0ff;--muted:#888aaa;
+  --teal:#4ecdc4;--lemon:#eef000;--coral:#ff6b6b;--navy:#1a2a4a;
+  --text:#1a2a4a;--muted:#6a7a8a;--surface:#f0f4f8;--card:#ffffff;--border:rgba(0,0,0,0.08);
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;overscroll-behavior:none;}
+html,body{height:100%;background:var(--surface);color:var(--text);font-family:'Noto Sans JP',sans-serif;overscroll-behavior:none;}
 .screen{display:none;padding:0 0 40px;}
-#setup-screen{min-height:100vh;}
+#setup-screen{min-height:100vh;overflow-y:auto;}
 #history-screen{min-height:100vh;}
 .screen.active{display:block;}
 
-/* ===== SETUP ===== */
-#setup-screen{padding:24px 20px 60px;overflow-y:auto;}
-.setup-header{text-align:center;padding:20px 0 28px;}
-.setup-header .logo{font-family:'Nunito',sans-serif;font-size:2.6rem;font-weight:900;
-  background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;}
-.setup-header .sub{font-size:.75rem;color:var(--muted);margin-top:4px;letter-spacing:3px;text-transform:uppercase;}
-.section-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
-.task-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
-.task-row{display:flex;align-items:center;gap:8px;}
-.task-row input[type=text]{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;}
-.task-row input[type=text]:focus{border-color:var(--cyan);}
-.task-row input[type=text]::placeholder{color:var(--muted);}
-.del-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,77,184,0.15);border:none;
-  color:var(--pink);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.add-btn{width:100%;padding:12px;background:rgba(0,229,255,0.08);border:1px dashed rgba(0,229,255,0.3);
-  border-radius:10px;color:var(--cyan);font-size:.9rem;cursor:pointer;font-family:inherit;margin-bottom:24px;}
-.start-btn{width:100%;padding:18px;border-radius:14px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--cyan),var(--pink));
-  font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:#0f0f1a;letter-spacing:2px;}
+/* HEADER */
+.sky-header{position:relative;width:100%;height:160px;overflow:hidden;background:#b0c4d8;}
+.sky-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+.sky-img.active{display:block;}
+.header-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,0.18) 0%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.22) 100%);}
+.header-top{position:absolute;top:14px;left:18px;font-size:.52rem;letter-spacing:.45em;color:rgba(255,255,255,0.8);font-weight:300;line-height:1.8;text-transform:uppercase;}
+.header-title{position:absolute;bottom:30px;left:16px;line-height:1;}
+.header-title .changing{font-family:'Kalam',cursive;font-size:2rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.header-title .me{font-family:'Kalam',cursive;font-size:2.4rem;color:var(--lemon);text-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.header-sub{position:absolute;bottom:10px;right:16px;text-align:right;font-size:.68rem;color:rgba(255,255,255,0.9);line-height:1.7;text-shadow:0 1px 4px rgba(0,0,0,0.4);}
+.streak-wrap{position:absolute;top:14px;right:16px;}
+.streak-pill{background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:5px 12px;font-size:.75rem;color:#fff;}
 
-/* ===== TRACKER ===== */
-#tracker-screen{display:none;flex-direction:column;height:100dvh;max-height:100dvh;overflow:hidden;}
-#tracker-screen.active{display:flex;}
-.tracker-header{padding:20px 20px 8px;display:flex;justify-content:space-between;align-items:center;}
-.tracker-logo{font-family:'Nunito',sans-serif;font-size:1.5rem;font-weight:900;
-  background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.streak-badge{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;
-  font-size:.8rem;color:var(--yellow);}
-.date-bar{padding:4px 20px 16px;font-size:.8rem;color:var(--muted);}
-.progress-wrap{padding:0 20px 16px;}
-.progress-bar-bg{height:6px;background:var(--card);border-radius:3px;overflow:hidden;}
-.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:3px;transition:width .4s;}
-.pct-label{font-size:.75rem;color:var(--muted);margin-top:6px;text-align:right;}
-.bubbles-area{flex:1;padding:8px 16px 0;display:flex;flex-wrap:wrap;gap:8px;align-content:center;justify-content:center;overflow:hidden;}
-.bubble{position:relative;flex-shrink:0;cursor:pointer;-webkit-tap-highlight-color:transparent;
-  transition:transform .12s,opacity .12s;}
-.bubble:active{transform:scale(.91);}
-.bubble.done{opacity:.28;transform:scale(.85);}
-.bubble canvas{display:block;}
-.bubble-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-weight:900;color:#fff;line-height:1.25;word-break:break-all;
-  text-align:center;text-shadow:0 1px 5px rgba(0,0,0,0.55);pointer-events:none;
-  width:80%;z-index:2;}
-.pop-particle{position:fixed;pointer-events:none;border-radius:50%;animation:popfly .6s ease-out forwards;}
-@keyframes popfly{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
-.bottom-bar{padding:16px 20px 32px;display:flex;flex-direction:column;gap:10px;}
-.done-btn{padding:16px;border-radius:14px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--cyan),var(--green));
-  font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;color:#0f0f1a;letter-spacing:1px;}
-.nav-row{display:flex;gap:8px;}
-.nav-btn{flex:1;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--card);
-  color:var(--muted);font-size:.8rem;cursor:pointer;font-family:inherit;}
-.nav-btn.active-tab{border-color:var(--cyan);color:var(--cyan);}
-
-/* ===== HISTORY ===== */
-#history-screen{padding:20px 20px 80px;}
-.history-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-.history-title{font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:var(--cyan);}
-.back-btn{padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:.8rem;cursor:pointer;}
-.tab-row{display:flex;gap:6px;margin-bottom:20px;}
-.tab-btn{flex:1;padding:10px 0;border-radius:8px;border:1px solid var(--border);background:var(--card);
-  color:var(--muted);font-size:.8rem;cursor:pointer;font-family:inherit;}
-.tab-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,0.08);}
-.chart-wrap{background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px;}
-canvas{width:100%!important;}
-.rec-list{display:flex;flex-direction:column;gap:8px;}
-.rec-item{background:var(--card);border-radius:10px;padding:12px 14px;
-  display:flex;align-items:center;gap:12px;}
-.rec-date{text-align:center;min-width:36px;}
-.rec-mo{font-size:.65rem;color:var(--muted);}
-.rec-day{font-size:1.2rem;font-weight:900;line-height:1;}
-.rec-wd{font-size:.65rem;color:var(--muted);}
-.rec-info{flex:1;}
-.rec-tags{display:flex;flex-wrap:wrap;gap:4px;}
-.rec-tag{font-size:.7rem;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,0.06);color:var(--muted);}
-.rec-tag.done{background:rgba(0,229,255,0.15);color:var(--cyan);}
-.rec-score{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;min-width:44px;text-align:right;}
-.reset-wrap{margin-top:24px;display:flex;flex-direction:column;gap:8px;}
-.reset-btn{padding:12px;border-radius:10px;border:1px solid rgba(255,77,184,0.3);background:rgba(255,77,184,0.08);
-  color:var(--pink);font-size:.85rem;cursor:pointer;font-family:inherit;}
-
-/* ===== GOAL INPUT ===== */
+/* GOAL */
 .goal-wrap{margin-bottom:20px;}
-.goal-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;}
-.goal-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;resize:none;line-height:1.6;}
-.goal-input:focus{border-color:var(--cyan);}
-.goal-input::placeholder{color:var(--muted);}
-.goal-history-btn{background:none;border:none;color:var(--cyan);font-size:.78rem;cursor:pointer;
+.goal-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.goal-input{width:100%;background:#fff;border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;resize:none;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.goal-input:focus{border-color:var(--teal);}
+.goal-input::placeholder{color:#aab;}
+.goal-history-btn{background:none;border:none;color:var(--teal);font-size:.78rem;cursor:pointer;
   padding:6px 0;font-family:inherit;display:flex;align-items:center;gap:4px;margin-top:4px;}
-.goal-history-list{display:none;background:var(--card);border:1px solid var(--border);border-radius:10px;
+.goal-history-list{display:none;background:#fff;border:1px solid var(--border);border-radius:10px;
   padding:12px 14px;margin-top:6px;max-height:180px;overflow-y:auto;}
 .goal-history-list.open{display:block;}
 .goal-history-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
 .goal-history-item:last-child{border-bottom:none;}
 .goal-history-date{font-size:.7rem;color:var(--muted);min-width:52px;padding-top:2px;}
 .goal-history-text{font-size:.85rem;color:var(--text);line-height:1.5;}
-.goal-history-text.current{color:var(--cyan);font-weight:700;}
+.goal-history-text.current{color:var(--teal);font-weight:700;}
 
-/* ===== DONE POPUP ===== */
-#done-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.7);
+/* DONE POPUP */
+#done-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(26,42,74,0.75);
   align-items:center;justify-content:center;padding:24px;}
 #done-popup.active{display:flex;}
-.done-popup-card{background:linear-gradient(135deg,#1a1a2e,#22223a);border-radius:24px;padding:32px 24px;
-  text-align:center;max-width:320px;width:100%;border:1px solid rgba(255,255,255,0.1);}
+.done-popup-card{background:linear-gradient(135deg,#fff,#f0f8f7);border-radius:24px;padding:32px 24px;
+  text-align:center;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(78,205,196,0.2);}
 .done-popup-emoji{font-size:3rem;margin-bottom:12px;}
-.done-popup-msg{font-family:'Nunito',sans-serif;font-size:1.3rem;font-weight:900;
-  background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  line-height:1.5;margin-bottom:24px;}
+.done-popup-msg{font-size:1.2rem;font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:24px;}
 .done-popup-btn{padding:14px 40px;border-radius:30px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--cyan),var(--pink));
-  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#0f0f1a;}
+  background:linear-gradient(135deg,var(--teal),#38b2ac);
+  font-family:'Kalam',cursive;font-size:1rem;color:#fff;box-shadow:0 4px 14px rgba(78,205,196,0.3);}
 
-/* ===== REFLECT POPUP ===== */
-#reflect-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.7);
+/* REFLECT POPUP */
+#reflect-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(26,42,74,0.75);
   align-items:center;justify-content:center;padding:24px;}
 #reflect-popup.active{display:flex;}
-.reflect-card{background:linear-gradient(135deg,#1a1a2e,#22223a);border-radius:24px;padding:32px 24px;
-  text-align:center;max-width:320px;width:100%;border:1px solid rgba(255,255,255,0.1);}
-.reflect-day{font-family:'Nunito',sans-serif;font-size:3rem;font-weight:900;
-  background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.reflect-msg{font-size:1.1rem;font-weight:700;color:var(--text);margin:12px 0 24px;line-height:1.6;}
+.reflect-card{background:linear-gradient(135deg,#fff,#f0f8f7);border-radius:24px;padding:32px 24px;
+  text-align:center;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(78,205,196,0.2);}
+.reflect-day{font-family:'Kalam',cursive;font-size:3rem;color:var(--teal);}
+.reflect-msg{font-size:1.05rem;font-weight:700;color:var(--navy);margin:12px 0 24px;line-height:1.7;}
 .reflect-btn{padding:14px 40px;border-radius:30px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--yellow),var(--orange));
-  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#0f0f1a;}
+  background:linear-gradient(135deg,#ffd89b,#f9b44e);
+  font-family:'Kalam',cursive;font-size:1rem;color:#fff;}
 
-/* ===== MILESTONE ===== */
-#milestone-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);
-  align-items:center;justify-content:center;flex-direction:column;}
+/* SETUP */
+#setup-screen{padding:0 0 60px;}
+.setup-body{padding:20px;}
+.section-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+.task-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.task-row{display:flex;align-items:center;gap:8px;}
+.task-row input[type=text]{flex:1;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.task-row input[type=text]:focus{border-color:var(--teal);}
+.task-row input[type=text]::placeholder{color:#aab;}
+.del-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,107,107,0.12);border:none;color:var(--coral);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.add-btn{width:100%;padding:12px;background:rgba(78,205,196,0.08);border:1px dashed rgba(78,205,196,0.4);border-radius:10px;color:var(--teal);font-size:.9rem;cursor:pointer;font-family:inherit;margin-bottom:20px;}
+.start-btn{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),#38b2ac);font-family:'Kalam',cursive;font-size:1.4rem;color:#fff;letter-spacing:2px;box-shadow:0 4px 16px rgba(78,205,196,0.35);}
+
+/* TRACKER */
+#tracker-screen{display:none;flex-direction:column;min-height:100vh;}
+#tracker-screen.active{display:flex;}
+.date-bar{padding:8px 20px 4px;font-size:.8rem;color:var(--muted);}
+.progress-wrap{padding:4px 20px 10px;}
+.progress-bar-bg{height:6px;background:#dde6ee;border-radius:3px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),#38b2ac);border-radius:3px;transition:width .4s;}
+.pct-label{font-size:.75rem;color:var(--muted);margin-top:4px;text-align:right;}
+.bubbles-area{flex:1;padding:8px 16px 0;display:flex;flex-wrap:wrap;gap:10px;align-content:center;justify-content:center;overflow:hidden;}
+.bubble{border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s;-webkit-tap-highlight-color:transparent;flex-shrink:0;text-align:center;padding:8px;position:relative;}
+.bubble:active{transform:scale(.92);}
+.bubble.done{opacity:.28;transform:scale(.86);}
+.bubble-text{font-size:.72rem;font-weight:700;color:#fff;line-height:1.25;word-break:break-all;max-width:88%;text-shadow:0 1px 4px rgba(0,0,0,0.4);}
+.pop-particle{position:fixed;pointer-events:none;border-radius:50%;animation:popfly .6s ease-out forwards;}
+@keyframes popfly{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
+.bottom-bar{padding:12px 20px 28px;display:flex;flex-direction:column;gap:8px;}
+.done-btn{padding:14px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),#38b2ac);font-family:'Kalam',cursive;font-size:1.1rem;color:#fff;letter-spacing:1px;box-shadow:0 4px 14px rgba(78,205,196,0.3);}
+.nav-row{display:flex;gap:8px;}
+.nav-btn{flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.75rem;cursor:pointer;font-family:inherit;}
+.nav-btn.active-tab{border-color:var(--teal);color:var(--teal);}
+
+/* MEMO POPUP */
+#memo-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(26,42,74,0.6);align-items:flex-end;justify-content:center;}
+#memo-overlay.active{display:flex;}
+.memo-sheet{background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;}
+.memo-task-name{font-size:.75rem;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;margin-bottom:6px;}
+.memo-question{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:16px;}
+.memo-input{width:100%;border:1px solid var(--border);border-radius:12px;padding:14px;font-size:.95rem;font-family:inherit;color:var(--text);outline:none;resize:none;background:#f8fafc;line-height:1.6;}
+.memo-input:focus{border-color:var(--teal);}
+.memo-btns{display:flex;gap:8px;margin-top:12px;}
+.memo-save{flex:1;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),#38b2ac);color:#fff;font-size:.95rem;font-family:inherit;font-weight:700;}
+.memo-skip{padding:14px 20px;border-radius:12px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.9rem;cursor:pointer;font-family:inherit;}
+
+/* HISTORY */
+#history-screen{padding:0 0 80px;}
+.history-body{padding:16px 20px;}
+.history-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.history-title{font-family:'Kalam',cursive;font-size:1.6rem;color:var(--teal);}
+.back-btn{padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.8rem;cursor:pointer;}
+.hist-mode-row{display:flex;gap:6px;margin-bottom:14px;}
+.hist-mode-btn{flex:1;padding:9px 0;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.78rem;cursor:pointer;font-family:inherit;}
+.hist-mode-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(78,205,196,0.08);}
+/* タスク別タブ */
+.task-tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px;}
+.task-tabs::-webkit-scrollbar{display:none;}
+.task-tab{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.78rem;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.task-tab.active{border-color:var(--teal);color:var(--teal);background:rgba(78,205,196,0.1);}
+.chart-wrap{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+canvas{width:100%!important;}
+/* ログリスト */
+.log-list{display:flex;flex-direction:column;gap:8px;}
+.log-item{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.log-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.log-date{font-size:.72rem;color:var(--muted);}
+.log-tag{font-size:.68rem;padding:2px 8px;border-radius:20px;background:rgba(78,205,196,0.12);color:var(--teal);}
+.log-memo{font-size:.88rem;color:var(--text);line-height:1.6;}
+.log-no-memo{font-size:.82rem;color:#bbc;font-style:italic;}
+/* 日別リスト */
+.rec-list{display:flex;flex-direction:column;gap:8px;}
+.rec-item{background:#fff;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.rec-date{text-align:center;min-width:36px;}
+.rec-mo{font-size:.65rem;color:var(--muted);}
+.rec-day{font-size:1.2rem;font-weight:700;line-height:1;color:var(--text);}
+.rec-wd{font-size:.65rem;color:var(--muted);}
+.rec-info{flex:1;}
+.rec-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.rec-tag{font-size:.7rem;padding:2px 8px;border-radius:20px;background:#f0f4f8;color:var(--muted);}
+.rec-tag.done{background:rgba(78,205,196,0.15);color:var(--teal);}
+.rec-score{font-family:'Kalam',cursive;font-size:1.1rem;min-width:44px;text-align:right;}
+.reset-wrap{margin-top:20px;}
+.reset-btn{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,107,107,0.3);background:rgba(255,107,107,0.06);color:var(--coral);font-size:.85rem;cursor:pointer;font-family:inherit;}
+
+/* MILESTONE */
+#milestone-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(240,244,248,0.92);align-items:center;justify-content:center;flex-direction:column;padding:24px;}
 #milestone-overlay.active{display:flex;}
-.milestone-msg{font-family:'Nunito',sans-serif;font-size:2rem;font-weight:900;text-align:center;
-  background:linear-gradient(135deg,var(--yellow),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding:0 24px;}
-.milestone-day{font-size:4rem;font-weight:900;font-family:'Nunito',sans-serif;
-  background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.milestone-close{margin-top:28px;padding:14px 40px;border-radius:30px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--cyan),var(--pink));
-  font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;color:#0f0f1a;}
-.firework{position:fixed;pointer-events:none;border-radius:50%;animation:fw .8s ease-out forwards;}
-@keyframes fw{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--fx),var(--fy)) scale(0);opacity:0;}}
+.milestone-day{font-family:'Kalam',cursive;font-size:4rem;color:var(--teal);text-align:center;}
+.milestone-msg{font-size:1.15rem;font-weight:700;text-align:center;color:var(--navy);margin-top:12px;line-height:1.7;padding:0 12px;}
+.milestone-close{margin-top:28px;padding:14px 40px;border-radius:30px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),#38b2ac);font-family:'Kalam',cursive;font-size:1.1rem;color:#fff;box-shadow:0 4px 14px rgba(78,205,196,0.35);}
+.confetti{position:fixed;pointer-events:none;border-radius:2px;animation:cf .9s ease-out forwards;}
+@keyframes cf{0%{transform:translate(0,0) rotate(0deg);opacity:1;}100%{transform:translate(var(--cx),var(--cy)) rotate(360deg);opacity:0;}}
 </style>
 </head>
 <body>
 
 <!-- SETUP -->
 <div id="setup-screen" class="screen active">
-  <div class="setup-header">
-    <div class="logo">BURN IT!</div>
-    <div class="sub">Daily Habit Tracker</div>
+  <div class="sky-header">
+    <img class="sky-img" id="sky-top1" src="top1.jpg" alt="">
+    <img class="sky-img" id="sky-top2" src="top2.jpg" alt="">
+    <img class="sky-img" id="sky-top3" src="top3.jpg" alt="">
+    <img class="sky-img" id="sky-top4" src="top4.jpg" alt="">
+    <img class="sky-img" id="sky-top5" src="top5.jpg" alt="">
+    <img class="sky-img" id="sky-top6" src="top6.jpg" alt="">
+    <div class="header-overlay"></div>
+    <div class="header-top">HABIT TRACKER<br>ANYTIME</div>
+    <div class="header-title"><span class="changing">Changing </span><span class="me">Me</span></div>
+    <div class="header-sub">ひとつひとつの選択が<br>明日のわたしをつくる</div>
   </div>
-  <div class="goal-wrap">
-    <div class="goal-label">どんな自分になりたい？</div>
-    <textarea class="goal-input" id="goal-input" rows="2" placeholder="例）健康的な習慣が自然にできる自分&#10;12月15日まで－5㎏、好きな服を着てお祝いする！"></textarea>
-    <button class="goal-history-btn" id="goal-history-btn">📖 過去の目標を見る ▼</button>
-    <div class="goal-history-list" id="goal-history-list"></div>
+  <div class="setup-body">
+    <div class="goal-wrap">
+      <div class="goal-label">どんな自分になりたい？</div>
+      <textarea class="goal-input" id="goal-input" rows="2" placeholder="例）発信を毎日続けられる自分　行動を積み重ねて収入を安定させる自分"></textarea>
+      <button class="goal-history-btn" id="goal-history-btn">📖 過去の目標を見る ▼</button>
+      <div class="goal-history-list" id="goal-history-list"></div>
+    </div>
+    <div class="section-label">今日のタスクを設定</div>
+    <div class="task-list" id="task-list"></div>
+    <button class="add-btn" id="add-btn">＋ タスクを追加</button>
+    <button class="start-btn" id="start-btn">Start ✨</button>
   </div>
-  <div class="section-label">今日のタスクを設定</div>
-  <div class="task-list" id="task-list"></div>
-  <button class="add-btn" id="add-btn">＋ タスクを追加</button>
-  <button class="start-btn" id="start-btn">🔥 START</button>
 </div>
 
 <!-- TRACKER -->
 <div id="tracker-screen" class="screen">
-  <div class="tracker-header">
-    <div class="tracker-logo">BURN IT!</div>
-    <div class="streak-badge" id="streak-badge">🔥 0日連続</div>
+  <div class="sky-header">
+    <img class="sky-img" id="sky2-top1" src="top1.jpg" alt="">
+    <img class="sky-img" id="sky2-top2" src="top2.jpg" alt="">
+    <img class="sky-img" id="sky2-top3" src="top3.jpg" alt="">
+    <img class="sky-img" id="sky2-top4" src="top4.jpg" alt="">
+    <img class="sky-img" id="sky2-top5" src="top5.jpg" alt="">
+    <img class="sky-img" id="sky2-top6" src="top6.jpg" alt="">
+    <div class="header-overlay"></div>
+    <div class="header-top">HABIT TRACKER<br>ANYTIME</div>
+    <div class="header-title"><span class="changing">Changing </span><span class="me">Me</span></div>
+    <div class="header-sub">ひとつひとつの選択が<br>明日のわたしをつくる</div>
+    <div class="streak-wrap"><div class="streak-pill" id="streak-badge">🌿 0日連続</div></div>
   </div>
   <div class="date-bar" id="date-bar"></div>
   <div class="progress-wrap">
@@ -196,37 +222,67 @@ canvas{width:100%!important;}
   </div>
   <div class="bubbles-area" id="bubbles-area"></div>
   <div class="bottom-bar">
-    <button class="done-btn" id="done-btn">✅ 今日はここまで！</button>
+    <button class="done-btn" id="done-btn">✨ 今日はここまで！</button>
     <div class="nav-row">
       <button class="nav-btn active-tab" id="nav-today">TODAY</button>
       <button class="nav-btn" id="nav-history">HISTORY</button>
-      <button class="nav-btn" id="nav-reset-today">RESET TODAY</button>
+      <button class="nav-btn" id="nav-reset-today">RESET</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO POPUP -->
+<div id="memo-overlay">
+  <div class="memo-sheet">
+    <div class="memo-task-name" id="memo-task-name"></div>
+    <div class="memo-question">今日、何をやりましたか？</div>
+    <textarea class="memo-input" id="memo-input" rows="3" placeholder="例）朝7時に起きてストレッチした　スキップもOK"></textarea>
+    <div class="memo-btns">
+      <button class="memo-save" id="memo-save">保存する</button>
+      <button class="memo-skip" id="memo-skip">スキップ</button>
     </div>
   </div>
 </div>
 
 <!-- HISTORY -->
 <div id="history-screen" class="screen">
-  <div class="history-header">
-    <div class="history-title">HISTORY</div>
-    <button class="back-btn" id="back-btn">← 戻る</button>
+  <div class="sky-header" style="height:110px;">
+    <img class="sky-img" id="sky3-top1" src="top1.jpg" alt="">
+    <img class="sky-img" id="sky3-top2" src="top2.jpg" alt="">
+    <img class="sky-img" id="sky3-top3" src="top3.jpg" alt="">
+    <img class="sky-img" id="sky3-top4" src="top4.jpg" alt="">
+    <img class="sky-img" id="sky3-top5" src="top5.jpg" alt="">
+    <img class="sky-img" id="sky3-top6" src="top6.jpg" alt="">
+    <div class="header-overlay"></div>
+    <div class="header-title" style="bottom:14px;"><span class="changing" style="font-size:1.5rem;">Changing </span><span class="me" style="font-size:1.8rem;">Me</span></div>
   </div>
-  <div class="tab-row">
-    <button class="tab-btn active" data-range="week">週</button>
-    <button class="tab-btn" data-range="month">月</button>
-    <button class="tab-btn" data-range="all">全期間</button>
-  </div>
-  <div class="chart-wrap"><canvas id="hist-chart" height="160"></canvas></div>
-  <div class="rec-list" id="rec-list"></div>
-  <div class="reset-wrap">
-    <button class="reset-btn" id="full-reset-btn">⚠️ 全データをリセット</button>
+  <div class="history-body">
+    <div class="history-header">
+      <div class="history-title">My Record</div>
+      <button class="back-btn" id="back-btn">← 戻る</button>
+    </div>
+    <!-- 表示モード切り替え -->
+    <div class="hist-mode-row">
+      <button class="hist-mode-btn active" data-mode="log">行動ログ</button>
+      <button class="hist-mode-btn" data-mode="daily">日別</button>
+    </div>
+    <!-- 行動ログモード用タスクタブ -->
+    <div class="task-tabs" id="task-tabs" style="display:flex;"></div>
+    <!-- チャート（日別モード用） -->
+    <div class="chart-wrap" id="chart-wrap" style="display:none;"><canvas id="hist-chart" height="140"></canvas></div>
+    <!-- リスト -->
+    <div id="log-list" class="log-list"></div>
+    <div id="rec-list" class="rec-list" style="display:none;"></div>
+    <div class="reset-wrap">
+      <button class="reset-btn" id="full-reset-btn">⚠️ 全データをリセット</button>
+    </div>
   </div>
 </div>
 
 <!-- DONE POPUP -->
 <div id="done-popup">
   <div class="done-popup-card">
-    <div class="done-popup-emoji" id="done-popup-emoji">🔥</div>
+    <div class="done-popup-emoji" id="done-popup-emoji">✨</div>
     <div class="done-popup-msg" id="done-popup-msg"></div>
     <button class="done-popup-btn" id="done-popup-btn">OK！</button>
   </div>
@@ -245,84 +301,74 @@ canvas{width:100%!important;}
 <div id="milestone-overlay">
   <div class="milestone-day" id="ms-day"></div>
   <div class="milestone-msg" id="ms-msg"></div>
-  <button class="milestone-close" id="ms-close">KEEP GOING 🔥</button>
+  <button class="milestone-close" id="ms-close">Keep going ✨</button>
 </div>
 
 <script>
-const STORE_KEY='burnit_v2';
+const STORE_KEY='changingme_v1';
 const MILESTONES=[3,7,10,14,20,21,25,30,40,45,50,60,70,80,85,90,95,100];
 const WEEKDAYS=['日','月','火','水','木','金','土'];
-const BUBBLE_DEFS=[
-  {base:'#00e5ff',mid:'#0099cc',dark:'#005577'},// cyan
-  {base:'#ff4db8',mid:'#cc2288',dark:'#881155'},// pink
-  {base:'#ffe234',mid:'#ddaa00',dark:'#997700'},// yellow
+const BUBBLE_COLORS=[
+  'linear-gradient(135deg,#4ecdc4,#2ab5ac)',
+  'linear-gradient(135deg,#ff9a9e,#e07070)',
+  'linear-gradient(135deg,#a8e6cf,#56c596)',
+  'linear-gradient(135deg,#ffd89b,#f9b44e)',
+  'linear-gradient(135deg,#a29bfe,#6c63ff)',
+  'linear-gradient(135deg,#fd79a8,#e84393)',
+  'linear-gradient(135deg,#74b9ff,#0984e3)',
+  'linear-gradient(135deg,#55efc4,#00b894)',
+  'linear-gradient(135deg,#fdcb6e,#e17055)',
+  'linear-gradient(135deg,#81ecec,#4ecdc4)',
 ];
+const DEFAULT_TASKS=['ストレッチ','寝る前に今日できたことを見直す','今日の自分をほめる'];
 
-function drawBubble(canvas, colorIdx, size){
-  const c=canvas.getContext('2d');
-  const r=size/2;
-  canvas.width=size; canvas.height=size;
-  const col=BUBBLE_DEFS[colorIdx%3];
-  // シンプルなラジアルグラデーション（奥行きのみ）
-  const g=c.createRadialGradient(r*0.6,r*0.5,r*0.1, r,r,r);
-  g.addColorStop(0,col.base);
-  g.addColorStop(0.6,col.mid);
-  g.addColorStop(1,col.dark);
-  c.beginPath();c.arc(r,r,r-1,0,Math.PI*2);
-  c.fillStyle=g;c.fill();
-}
-
-let taskList={};// {id:{name,done}}
+let taskList={};
 let nextId=1;
-let histRange='week';
+let histMode='log';
+let activeTaskTab='all';
+let pendingMemoId=null;
 
-function loadData(){
-  try{return JSON.parse(localStorage.getItem(STORE_KEY))||{};}catch(e){return{};}
-}
+function loadData(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{};}catch(e){return{};}}
 function saveData(d){localStorage.setItem(STORE_KEY,JSON.stringify(d));}
 function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
-function fmtD(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+
+// 時間帯→空画像
+function getSkyId(prefix){
+  const h=new Date().getHours(),m=new Date().getMinutes(),t=h*60+m;
+  if(t>=210&&t<300)return prefix+'-top1';  // 3:30-5:00
+  if(t>=300&&t<420)return prefix+'-top2';  // 5:00-7:00
+  if(t>=420&&t<930)return prefix+'-top3';  // 7:00-15:30
+  if(t>=930&&t<1050)return prefix+'-top4'; // 15:30-17:30
+  if(t>=1050&&t<1140)return prefix+'-top5';// 17:30-19:00
+  return prefix+'-top6';                   // 19:00-3:30
+}
+function updateSkies(){
+  ['sky','sky2','sky3'].forEach(p=>{
+    document.querySelectorAll(`[id^="${p}-top"]`).forEach(el=>el.classList.remove('active'));
+    const t=document.getElementById(getSkyId(p));
+    if(t)t.classList.add('active');
+  });
+}
 
 // ===== SETUP =====
 function initSetup(){
-  const data=loadData();
-  const today=todayStr();
-  // 今日が記録済みでも一度セットアップを表示（タスクは引き継ぐ）
-  if(data[today]&&data[today].tasks){
-    // 今日のタスクを引き継ぎ（done状態も保持）
-    taskList={};nextId=1;
-    data[today].tasks.forEach(t=>{
-      const id='t'+nextId++;
-      taskList[id]={name:t.name,done:t.done};
-    });
-    renderTaskList();
-    const savedGoal=data['__goal']||'';
-    document.getElementById('goal-input').value=savedGoal;
-    return;
-  }
-  // 前回のタスク設定を引き継ぐ
+  updateSkies();
+  const data=loadData(),today=todayStr();
+  // 今日の記録があってもセットアップ画面を表示（タスクはdone状態リセットして引き継ぎ）
   const keys=Object.keys(data).filter(k=>k!=='__settings').sort();
   const lastKey=keys[keys.length-1];
   const lastTasks=lastKey&&data[lastKey].tasks?data[lastKey].tasks:[];
   taskList={};nextId=1;
   if(lastTasks.length>0){
-    lastTasks.forEach(t=>{
-      const id='t'+nextId++;
-      taskList[id]={name:t.name,done:false};
-    });
-  } else {
-    const defaults=['朝 3分ストレッチ','朝 白湯を飲む','夜8時以降食べない','筋トレ①20回','体重を量る'];
-    defaults.forEach(name=>{
-      const id='t'+nextId++;
-      taskList[id]={name,done:false};
-    });
+    lastTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
+  }else{
+    DEFAULT_TASKS.forEach(name=>{const id='t'+nextId++;taskList[id]={name,done:false};});
   }
   renderTaskList();
   // 目標を復元
   const d2=loadData();
-  const savedGoal=d2['__goal']||'';
-  document.getElementById('goal-input').value=savedGoal;
+  document.getElementById('goal-input').value=d2['__goal']||'';
   renderGoalHistory();
 }
 
@@ -331,9 +377,8 @@ function renderGoalHistory(){
   const history=data['__goalHistory']||[];
   const current=data['__goal']||'';
   const el=document.getElementById('goal-history-list');
-  if(!history.length){el.innerHTML='<div style="font-size:.8rem;color:var(--muted);">まだ記録がありません</div>';return;}
+  if(!history.length){el.innerHTML='<div style="font-size:.8rem;color:#aab;padding:4px 0;">まだ記録がありません</div>';return;}
   el.innerHTML='';
-  // 新しい順に表示
   [...history].reverse().forEach((h,i)=>{
     const d=new Date(h.date.replace(/-/g,'/'));
     const dateStr=`${d.getMonth()+1}/${d.getDate()}`;
@@ -348,163 +393,145 @@ document.getElementById('goal-history-btn').addEventListener('click',()=>{
   const list=document.getElementById('goal-history-list');
   const isOpen=list.classList.contains('open');
   list.classList.toggle('open');
-  document.getElementById('goal-history-btn').textContent=isOpen?'📖 過去の目標を見る ▼':'📖 過去の目標を閉じる ▲';
+  document.getElementById('goal-history-btn').textContent=
+    isOpen?'📖 過去の目標を見る ▼':'📖 過去の目標を閉じる ▲';
 });
 
 function renderTaskList(){
-  const el=document.getElementById('task-list');
-  el.innerHTML='';
+  const el=document.getElementById('task-list');el.innerHTML='';
   Object.entries(taskList).forEach(([id,t])=>{
-    const row=document.createElement('div');
-    row.className='task-row';
-    row.dataset.id=id;
-    const inp=document.createElement('input');
-    inp.type='text';inp.placeholder='タスク名を入力';inp.value=t.name;
+    const row=document.createElement('div');row.className='task-row';
+    const inp=document.createElement('input');inp.type='text';inp.placeholder='タスク名を入力';inp.value=t.name;
     inp.addEventListener('input',e=>{taskList[id].name=e.target.value;});
-    const del=document.createElement('button');
-    del.className='del-btn';del.textContent='×';
-    del.addEventListener('click',()=>{
-      if(Object.keys(taskList).length<=1)return;
-      delete taskList[id];
-      renderTaskList();
-    });
-    row.appendChild(inp);row.appendChild(del);
-    el.appendChild(row);
+    const del=document.createElement('button');del.className='del-btn';del.textContent='×';
+    del.addEventListener('click',()=>{if(Object.keys(taskList).length<=1)return;delete taskList[id];renderTaskList();});
+    row.appendChild(inp);row.appendChild(del);el.appendChild(row);
   });
 }
 
 document.getElementById('add-btn').addEventListener('click',()=>{
   if(Object.keys(taskList).length>=10)return;
-  const id='t'+nextId++;
-  taskList[id]={name:'',done:false};
-  renderTaskList();
-  // 最後の入力欄にフォーカス
+  const id='t'+nextId++;taskList[id]={name:'',done:false};renderTaskList();
   const inputs=document.querySelectorAll('.task-row input');
   if(inputs.length)inputs[inputs.length-1].focus();
 });
 
 document.getElementById('start-btn').addEventListener('click',()=>{
-  // 空のタスクを除去
-  Object.keys(taskList).forEach(id=>{
-    if(!taskList[id].name.trim())delete taskList[id];
-  });
-  if(Object.keys(taskList).length===0){
-    const id='t'+nextId++;
-    taskList[id]={name:'デフォルトタスク',done:false};
-  }
-  showScreen('tracker-screen');
-  renderTracker();
+  Object.keys(taskList).forEach(id=>{if(!taskList[id].name.trim())delete taskList[id];});
+  if(Object.keys(taskList).length===0){const id='t'+nextId++;taskList[id]={name:'デフォルトタスク',done:false};}
+  showScreen('tracker-screen');renderTracker();
 });
 
 // ===== TRACKER =====
 function renderTracker(){
+  updateSkies();
   const d=new Date();
-  document.getElementById('date-bar').textContent=
-    `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${WEEKDAYS[d.getDay()]}）`;
-  renderBubbles();
-  updateProgress();
-  updateStreak();
+  document.getElementById('date-bar').textContent=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${WEEKDAYS[d.getDay()]}）`;
+  renderBubbles();updateProgress();updateStreak();
 }
 
 function renderBubbles(){
-  const area=document.getElementById('bubbles-area');
-  area.innerHTML='';
-  const ids=Object.keys(taskList);
-  const n=ids.length;
+  const area=document.getElementById('bubbles-area');area.innerHTML='';
+  const ids=Object.keys(taskList);const n=ids.length;
   if(!n)return;
-
-  // エリアサイズ取得（非表示時のフォールバックあり）
   const areaW=area.offsetWidth||window.innerWidth-32;
-  const areaH=area.offsetHeight||(window.innerHeight*0.50);
-
-  // 列・行数
+  const areaH=area.offsetHeight||(window.innerHeight*0.48);
   const cols=n<=2?n:n<=4?2:n<=6?3:n<=8?4:5;
   const rows=Math.ceil(n/cols);
   const gap=10;
   const maxW=Math.floor((areaW-(cols-1)*gap)/cols);
   const maxH=Math.floor((areaH-(rows-1)*gap)/rows);
   const baseSize=Math.min(maxW,maxH,148);
-
-  // 大中小パターン（5個がデフォルト）
-  // 大・中・小をシャッフルしてランダムなバラつきを生成
-  const sizes=[1.0,0.92,0.82,0.72,0.62];// 大〜小の5段階
-  // n個分のサイズをランダムに生成（大が少なくとも1つ、小が少なくとも1つ入るように）
-  function makeRandomPat(count){
-    const pool=[];
-    for(let i=0;i<count;i++) pool.push(sizes[i%sizes.length]);
-    // Fisher-Yatesシャッフル
-    for(let i=pool.length-1;i>0;i--){
-      const j=Math.floor(Math.random()*(i+1));
-      [pool[i],pool[j]]=[pool[j],pool[i]];
-    }
-    return pool;
-  }
-  const pat=makeRandomPat(n);
-
+  const patterns={
+    1:[1.0],2:[1.0,0.85],3:[1.0,0.78,0.90],
+    4:[1.0,0.78,0.88,0.68],
+    5:[1.0,0.70,0.88,0.65,0.92],
+    6:[0.95,0.72,0.88,0.65,0.82,0.78],
+    7:[0.95,0.72,0.88,0.65,0.82,0.78,0.9],
+    8:[0.9,0.70,0.85,0.62,0.80,0.75,0.88,0.68],
+    9:[0.9,0.70,0.85,0.62,0.80,0.75,0.88,0.68,0.78],
+    10:[0.88,0.68,0.82,0.60,0.78,0.72,0.86,0.65,0.76,0.70],
+  };
+  const pat=patterns[n]||[...Array(n)].map((_,i)=>[1.0,0.75,0.88][i%3]);
   ids.forEach((id,i)=>{
     const t=taskList[id];
     const sz=Math.max(60,Math.round(baseSize*pat[i]));
-
     const div=document.createElement('div');
     div.className='bubble'+(t.done?' done':'');
-    div.style.width=sz+'px';
-    div.style.height=sz+'px';
+    div.style.cssText=`width:${sz}px;height:${sz}px;background:${BUBBLE_COLORS[i%BUBBLE_COLORS.length]};box-shadow:0 4px 16px rgba(0,0,0,0.18);`;
     div.dataset.id=id;
-
-    // Canvasでバブル描画
-    const cvs=document.createElement('canvas');
-    drawBubble(cvs, i%3, sz);
-    div.appendChild(cvs);
-
-    // テキスト
-    const span=document.createElement('span');
-    span.className='bubble-text';
+    const span=document.createElement('span');span.className='bubble-text';
     span.style.fontSize=sz<72?'.58rem':sz<92?'.65rem':'.73rem';
     span.textContent=t.name||'タスク';
     div.appendChild(span);
-
-    div.addEventListener('click',()=>tapBubble(id,div));
+    div.addEventListener('click',()=>openMemo(id,div));
     area.appendChild(div);
   });
 }
 
-function tapBubble(id,el){
+// ===== MEMO =====
+function openMemo(id, el){
   if(taskList[id].done)return;
-  taskList[id].done=true;
-  el.classList.add('done');
-  popEffect(el);
-  updateProgress();
+  pendingMemoId=id;
+  document.getElementById('memo-task-name').textContent=taskList[id].name;
+  document.getElementById('memo-input').value='';
+  document.getElementById('memo-overlay').classList.add('active');
+  setTimeout(()=>document.getElementById('memo-input').focus(),300);
 }
 
+function closeMemo(){
+  document.getElementById('memo-overlay').classList.remove('active');
+  pendingMemoId=null;
+}
+
+function saveMemoAndDone(memo){
+  const id=pendingMemoId;if(!id)return;
+  taskList[id].done=true;
+  // メモをlocalStorageに保存
+  const data=loadData();const today=todayStr();
+  if(!data[today])data[today]={done:false,pct:0,tasks:[],memos:{}};
+  if(!data[today].memos)data[today].memos={};
+  data[today].memos[taskList[id].name]=memo;
+  saveData(data);
+  // バブルにdoneを反映
+  const el=document.querySelector(`.bubble[data-id="${id}"]`);
+  if(el){el.classList.add('done');popEffect(el);}
+  updateProgress();
+  closeMemo();
+}
+
+document.getElementById('memo-save').addEventListener('click',()=>{
+  const memo=document.getElementById('memo-input').value.trim();
+  saveMemoAndDone(memo);
+});
+document.getElementById('memo-skip').addEventListener('click',()=>{
+  saveMemoAndDone('');
+});
+document.getElementById('memo-overlay').addEventListener('click',(e)=>{
+  if(e.target===document.getElementById('memo-overlay'))closeMemo();
+});
+
 function popEffect(el){
-  const rect=el.getBoundingClientRect();
-  const cx=rect.left+rect.width/2;const cy=rect.top+rect.height/2;
-  const colors=['#00e5ff','#ff4db8','#ffe234','#39ff14','#ff9a3c','#c77dff'];
+  const rect=el.getBoundingClientRect();const cx=rect.left+rect.width/2;const cy=rect.top+rect.height/2;
+  const colors=['#4ecdc4','#ff9a9e','#ffd89b','#a29bfe','#55efc4','#fdcb6e'];
   for(let i=0;i<12;i++){
-    const p=document.createElement('div');
-    p.className='pop-particle';
-    const angle=(i/12)*Math.PI*2;
-    const dist=40+Math.random()*60;
-    p.style.cssText=`left:${cx}px;top:${cy}px;width:10px;height:10px;
-      background:${colors[i%colors.length]};
-      --tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;`;
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),700);
+    const p=document.createElement('div');p.className='pop-particle';
+    const angle=(i/12)*Math.PI*2;const dist=40+Math.random()*60;
+    p.style.cssText=`left:${cx}px;top:${cy}px;width:10px;height:10px;background:${colors[i%colors.length]};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;`;
+    document.body.appendChild(p);setTimeout(()=>p.remove(),700);
   }
 }
 
 function updateProgress(){
-  const ids=Object.keys(taskList);
-  const done=ids.filter(id=>taskList[id].done).length;
+  const ids=Object.keys(taskList);const done=ids.filter(id=>taskList[id].done).length;
   const pct=ids.length?Math.round(done/ids.length*100):0;
   document.getElementById('prog-fill').style.width=pct+'%';
   document.getElementById('pct-label').textContent=pct+'%';
 }
 
 function updateStreak(){
-  const data=loadData();
-  const streak=calcStreak(data);
-  document.getElementById('streak-badge').textContent=`🔥 ${streak}日連続`;
+  const data=loadData();const streak=calcStreak(data);
+  document.getElementById('streak-badge').textContent=`🌿 ${streak}日連続`;
 }
 
 function calcStreak(data){
@@ -513,28 +540,31 @@ function calcStreak(data){
   let streak=0;const today=new Date();today.setHours(0,0,0,0);
   for(let i=0;i<keys.length;i++){
     const d=parseD(keys[i]);d.setHours(0,0,0,0);
-    const diff=Math.round((today-d)/(86400000));
-    if(diff===i)streak++;else break;
+    if(Math.round((today-d)/86400000)===i)streak++;else break;
   }
   return streak;
 }
 
 const DONE_MESSAGES=[
-  {emoji:'🌟',msg:'チャレンジしてすばらしい！\n明日もやってみよう！'},
-  {emoji:'👏',msg:'続けてエライ！'},
-  {emoji:'💭',msg:'続ける前の自分と今の自分、\nどっちが好き？'},
-  {emoji:'💪',msg:'がんばっている自分を\n称えよう‼'},
-  {emoji:'🌙',msg:'今日もよく頑張りました！\nおやすみなさい！'},
-  {emoji:'✨',msg:'あなたサイコー、\nまた明日！'},
+  {emoji:'🌟',msg:'今日も動いた。
+それだけで十分すごい。'},
+  {emoji:'👏',msg:'続けてエライ！
+自分を褒めてあげて。'},
+  {emoji:'💭',msg:'動く前の自分と今の自分、
+どっちが好き？'},
+  {emoji:'💪',msg:'行動し続けている自分を
+称えよう‼'},
+  {emoji:'🌙',msg:'今日もよく頑張りました！
+おやすみなさい！'},
+  {emoji:'✨',msg:'あなたサイコー、
+また明日！'},
 ];
 const REFLECT_MILESTONES=[15,30,50,70,90,100];
 
 document.getElementById('done-btn').addEventListener('click',()=>{
-  const ids=Object.keys(taskList);
-  const done=ids.filter(id=>taskList[id].done).length;
+  const ids=Object.keys(taskList);const done=ids.filter(id=>taskList[id].done).length;
   const pct=ids.length?Math.round(done/ids.length*100):0;
-  const data=loadData();
-  const today=todayStr();
+  const data=loadData();const today=todayStr();
   // 目標を保存（変わった時だけ履歴に追加）
   const goalVal=document.getElementById('goal-input').value.trim();
   if(goalVal){
@@ -545,17 +575,17 @@ document.getElementById('done-btn').addEventListener('click',()=>{
     }
     data['__goal']=goalVal;
   }
-  data[today]={done:true,pct,tasks:ids.map(id=>({name:taskList[id].name,done:taskList[id].done}))};
+  if(!data[today])data[today]={memos:{}};
+  data[today].done=true;data[today].pct=pct;
+  data[today].tasks=ids.map(id=>({name:taskList[id].name,done:taskList[id].done}));
   saveData(data);
   const streak=calcStreak(data);
-  // マイルストーンの日はマイルストーン→2.2秒後に振り返りポップアップ
   if(MILESTONES.includes(streak)){
     checkMilestone(streak);
     if(REFLECT_MILESTONES.includes(streak)){
       setTimeout(()=>showReflectPopup(streak),2200);
     }
-  } else {
-    // 通常日：ランダムメッセージポップアップ
+  }else{
     showDonePopup();
   }
 });
@@ -566,191 +596,205 @@ function showDonePopup(){
   document.getElementById('done-popup-msg').textContent=m.msg;
   document.getElementById('done-popup').classList.add('active');
 }
-
 document.getElementById('done-popup-btn').addEventListener('click',()=>{
   document.getElementById('done-popup').classList.remove('active');
   showScreen('setup-screen');
-  // ★ワンタイムリセット：今日のデータを削除（テスト用・1回だけ実行）
-(function(){
-  const d=loadData();
-  const today=todayStr();
-  if(d[today]){delete d[today];saveData(d);}
-})();
-
-initSetup();
+  initSetup();
 });
 
 function showReflectPopup(streak){
   document.getElementById('reflect-day').textContent=streak+'日！';
-  const msg=streak===100
-    ?'始めた時の自分と今の自分、\nどんな風に変わった？'
-    :'始めた時と変わった？';
-  document.getElementById('reflect-msg').textContent=msg;
+  document.getElementById('reflect-msg').textContent=
+    streak===100?'始めた時の自分と今の自分、
+どんな風に変わった？':'始めた時と変わった？';
   document.getElementById('reflect-popup').classList.add('active');
 }
-
 document.getElementById('reflect-btn').addEventListener('click',()=>{
   document.getElementById('reflect-popup').classList.remove('active');
 });
 
-document.getElementById('nav-history').addEventListener('click',()=>{
-  showScreen('history-screen');
-  renderHistory();
-});
-document.getElementById('nav-today').addEventListener('click',()=>{
-  showScreen('tracker-screen');
-});
+document.getElementById('nav-history').addEventListener('click',()=>{showScreen('history-screen');renderHistory();});
+document.getElementById('nav-today').addEventListener('click',()=>{showScreen('tracker-screen');});
 document.getElementById('nav-reset-today').addEventListener('click',()=>{
   if(confirm('今日の記録をリセットしますか？')){
-    Object.keys(taskList).forEach(id=>{taskList[id].done=false;});
-    renderBubbles();updateProgress();
+    Object.keys(taskList).forEach(id=>{taskList[id].done=false;});renderBubbles();updateProgress();
   }
 });
-document.getElementById('back-btn').addEventListener('click',()=>{
-  showScreen('tracker-screen');
-});
+document.getElementById('back-btn').addEventListener('click',()=>{showScreen('tracker-screen');});
 
 function loadTodayFromRecord(rec){
   taskList={};nextId=1;
-  rec.tasks.forEach(t=>{
-    const id='t'+nextId++;
-    taskList[id]={name:t.name,done:t.done};
-  });
+  rec.tasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:t.done};});
 }
 
 // ===== MILESTONE =====
 function checkMilestone(streak){
   if(!MILESTONES.includes(streak))return;
-  const overlay=document.getElementById('milestone-overlay');
   document.getElementById('ms-day').textContent=streak+'日達成！';
   const msgs={
-    3:'3日、続いた。それだけでもう十分すごい。',
-    7:'1週間！続いた自分を褒めよう！',
-    10:'10日目。もう"やる人"になってる。',
-    14:'2週間。体が覚えはじめてる。',
-    20:'20日。これ、本物の習慣かも。',
-    21:'21日。科学的に習慣になった日。',
-    25:'あと5日で、もうすぐ1ヶ月！素晴らしい✨️',
-    30:'1ヶ月達成✨️もう あなたは、変わってる！',
-    40:'40日。もう誰にも止められない。',
-    45:'45日。折り返し超えた。本物だ。',
-    50:'50日。自分との約束、守ってる。',
-    60:'2ヶ月。これが新しい"普通"になった。',
-    70:'70日。継続が、一番の才能。',
-    80:'80日。ここまで来る人、ほとんどいない。',
-    85:'85日。もうゴールが見えてる。',
-    90:'3ヶ月。人生、変わってきてない？',
+    3:'3日、動いた。それだけで十分すごい。',
+    7:'1週間！動いた自分を、ちゃんと褒めてあげて。',
+    10:'10日。続けてきたあなたは、もう「行動できる人」だよ。',
+    14:'2週間。小さな一歩が、確実に積み上がってる。',
+    20:'20日。今日の行動が、未来のあなたを作ってる。',
+    21:'21日。ここまで来たあなたは、本物だ。',
+    25:'あと5日で1ヶ月。ここまで来れたの、すごくない？',
+    30:'1ヶ月。動き続けたあなたを、誰より先に認めてあげて✨',
+    40:'40日分の行動が、もうあなたの実績になってる。',
+    45:'45日。少し疲れてても、ここまで来た自分を信じて。',
+    50:'50日。続けてきた事実が、あなたの一番の強みになる。',
+    60:'2ヶ月。動き続けた自分を、もう信頼していい。',
+    70:'70日。止まりたい日も、また一歩踏み出してきたね。',
+    80:'80日。ここまで来る人、本当に少ない。あなたはその一人。',
+    85:'85日。もうゴールじゃなくて、これがあなたの生き方になってる。',
+    90:'3ヶ月。動き続けた自分と、少し話してみて。何が変わった？',
     95:'95日。あと5日、一緒に行こう。',
-    100:'100日分の"あなた"が、今日のあなたをつくった！！本当におめでとう🎉'
+    100:'100日分の行動が、今日のあなたをつくった。本当によくやった🎉'
   };
   document.getElementById('ms-msg').textContent=msgs[streak]||`${streak}日達成！`;
-  overlay.classList.add('active');
-  fireFireworks(streak>=30?3:1);
+  document.getElementById('milestone-overlay').classList.add('active');
+  fireConfetti(streak>=30?3:streak>=10?2:1);
 }
+document.getElementById('ms-close').addEventListener('click',()=>{document.getElementById('milestone-overlay').classList.remove('active');});
 
-document.getElementById('ms-close').addEventListener('click',()=>{
-  document.getElementById('milestone-overlay').classList.remove('active');
-});
-
-function fireFireworks(level){
-  const colors=['#00e5ff','#ff4db8','#ffe234','#39ff14','#ff9a3c','#c77dff','#ffffff'];
-  const count=level===3?80:level===2?40:20;
+function fireConfetti(level){
+  const colors=['#4ecdc4','#ff9a9e','#ffd89b','#a29bfe','#55efc4','#fdcb6e','#fff','#eef000'];
+  const count=level===3?100:level===2?50:25;
   for(let i=0;i<count;i++){
     setTimeout(()=>{
-      const p=document.createElement('div');
-      p.className='firework';
-      const sx=Math.random()*window.innerWidth;
-      const sy=Math.random()*window.innerHeight;
-      const angle=Math.random()*Math.PI*2;
-      const dist=80+Math.random()*120;
-      p.style.cssText=`left:${sx}px;top:${sy}px;width:8px;height:8px;
-        background:${colors[Math.floor(Math.random()*colors.length)]};
-        --fx:${Math.cos(angle)*dist}px;--fy:${Math.sin(angle)*dist}px;`;
-      document.body.appendChild(p);
-      setTimeout(()=>p.remove(),900);
-    },Math.random()*1000);
+      const p=document.createElement('div');p.className='confetti';
+      const sx=Math.random()*window.innerWidth,sy=Math.random()*window.innerHeight*0.5;
+      const angle=Math.random()*Math.PI*2,dist=80+Math.random()*140;
+      const w=6+Math.random()*8,h=4+Math.random()*6;
+      p.style.cssText=`left:${sx}px;top:${sy}px;width:${w}px;height:${h}px;background:${colors[Math.floor(Math.random()*colors.length)]};--cx:${Math.cos(angle)*dist}px;--cy:${Math.sin(angle)*dist+60}px;`;
+      document.body.appendChild(p);setTimeout(()=>p.remove(),1000);
+    },Math.random()*1200);
   }
 }
 
 // ===== HISTORY =====
 function renderHistory(){
-  document.querySelectorAll('.tab-btn').forEach(b=>{
-    b.classList.toggle('active',b.dataset.range===histRange);
+  updateSkies();
+  // モード切り替えボタン
+  document.querySelectorAll('.hist-mode-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.mode===histMode);
   });
-  const data=loadData();
-  const allKeys=Object.keys(data).filter(k=>k!=='__settings').sort();
-  const today=new Date();today.setHours(0,0,0,0);
-  let keys;
-  if(histRange==='week'){
-    keys=allKeys.filter(k=>{const d=parseD(k);d.setHours(0,0,0,0);return(today-d)<=6*86400000;});
-  }else if(histRange==='month'){
-    keys=allKeys.filter(k=>{const d=parseD(k);d.setHours(0,0,0,0);return(today-d)<=29*86400000;});
-  }else{keys=allKeys;}
-  drawChart(keys,data);
-  renderRecList(keys.slice().reverse(),data);
+  if(histMode==='log'){
+    document.getElementById('task-tabs').style.display='flex';
+    document.getElementById('chart-wrap').style.display='none';
+    document.getElementById('log-list').style.display='flex';
+    document.getElementById('rec-list').style.display='none';
+    renderLogMode();
+  }else{
+    document.getElementById('task-tabs').style.display='none';
+    document.getElementById('chart-wrap').style.display='block';
+    document.getElementById('log-list').style.display='none';
+    document.getElementById('rec-list').style.display='flex';
+    renderDailyMode();
+  }
 }
 
-document.querySelectorAll('.tab-btn').forEach(b=>{
-  b.addEventListener('click',()=>{histRange=b.dataset.range;renderHistory();});
+document.querySelectorAll('.hist-mode-btn').forEach(b=>{
+  b.addEventListener('click',()=>{histMode=b.dataset.mode;renderHistory();});
 });
 
+// 行動ログモード
+function renderLogMode(){
+  const data=loadData();
+  // 全タスク名収集
+  const taskNames=new Set();
+  Object.values(data).forEach(d=>{
+    if(d.tasks)d.tasks.forEach(t=>{if(t.done)taskNames.add(t.name);});
+  });
+  // タブ描画
+  const tabEl=document.getElementById('task-tabs');tabEl.innerHTML='';
+  const allTab=document.createElement('button');
+  allTab.className='task-tab'+(activeTaskTab==='all'?' active':'');
+  allTab.textContent='すべて';allTab.dataset.task='all';
+  allTab.addEventListener('click',()=>{activeTaskTab='all';renderLogMode();});
+  tabEl.appendChild(allTab);
+  [...taskNames].forEach(name=>{
+    const btn=document.createElement('button');
+    btn.className='task-tab'+(activeTaskTab===name?' active':'');
+    btn.textContent=name;btn.dataset.task=name;
+    btn.addEventListener('click',()=>{activeTaskTab=name;renderLogMode();});
+    tabEl.appendChild(btn);
+  });
+  // ログ一覧
+  const logEl=document.getElementById('log-list');logEl.innerHTML='';
+  const allKeys=Object.keys(data).filter(k=>k!=='__settings').sort().reverse();
+  let hasLog=false;
+  allKeys.forEach(dateKey=>{
+    const rec=data[dateKey];if(!rec||!rec.tasks)return;
+    const memos=rec.memos||{};
+    const d=parseD(dateKey);
+    const dateStr=`${d.getMonth()+1}/${d.getDate()}（${WEEKDAYS[d.getDay()]}）`;
+    rec.tasks.forEach(t=>{
+      if(!t.done)return;
+      if(activeTaskTab!=='all'&&activeTaskTab!==t.name)return;
+      hasLog=true;
+      const item=document.createElement('div');item.className='log-item';
+      const memo=memos[t.name]||'';
+      item.innerHTML=`<div class="log-top"><span class="log-date">${dateStr}</span><span class="log-tag">${t.name}</span></div>${memo?`<div class="log-memo">${memo}</div>`:`<div class="log-no-memo">メモなし</div>`}`;
+      logEl.appendChild(item);
+    });
+  });
+  if(!hasLog){
+    logEl.innerHTML='<div style="color:#aab;font-size:.85rem;padding:20px 0;text-align:center;">まだ記録がありません</div>';
+  }
+}
+
+// 日別モード
+function renderDailyMode(){
+  const data=loadData();
+  const allKeys=Object.keys(data).filter(k=>k!=='__settings').sort();
+  drawChart(allKeys,data);
+  const recEl=document.getElementById('rec-list');recEl.innerHTML='';
+  allKeys.slice().reverse().forEach(k=>{
+    const r=data[k];if(!r)return;
+    const d=parseD(k);const sc=r.pct>=80?'#4ecdc4':r.pct>=50?'#fdcb6e':'#ccc';
+    const tags=r.tasks?r.tasks.map(t=>`<span class="rec-tag ${t.done?'done':''}">${t.done?'✓ ':''}${t.name}</span>`).join(''):'';
+    const item=document.createElement('div');item.className='rec-item';
+    item.innerHTML=`<div class="rec-date"><div class="rec-mo">${d.getMonth()+1}月</div><div class="rec-day">${d.getDate()}</div><div class="rec-wd">${WEEKDAYS[d.getDay()]}</div></div><div class="rec-info"><div class="rec-tags">${tags}</div></div><div class="rec-score" style="color:${sc}">${r.pct}%</div>`;
+    recEl.appendChild(item);
+  });
+}
+
 function drawChart(keys,data){
-  const canvas=document.getElementById('hist-chart');
-  const ctx=canvas.getContext('2d');
-  const W=canvas.offsetWidth||300;const H=160;
-  canvas.width=W;canvas.height=H;
+  const canvas=document.getElementById('hist-chart');const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||300,H=140;canvas.width=W;canvas.height=H;
   ctx.clearRect(0,0,W,H);
-  if(!keys.length){ctx.fillStyle='#888aaa';ctx.font='14px sans-serif';ctx.fillText('記録なし',W/2-30,H/2);return;}
+  if(!keys.length){ctx.fillStyle='#aab';ctx.font='14px sans-serif';ctx.fillText('記録なし',W/2-30,H/2);return;}
   const vals=keys.map(k=>data[k]?.pct||0);
-  const maxV=100;const pad={l:24,r:8,t:10,b:28};
+  const pad={l:24,r:8,t:8,b:26};
   const bw=Math.max(4,(W-pad.l-pad.r)/keys.length-4);
-  ctx.fillStyle='rgba(0,229,255,0.08)';
   for(let i=0;i<=4;i++){
     const y=pad.t+(H-pad.t-pad.b)*(1-i/4);
-    ctx.fillRect(pad.l,y,W-pad.l-pad.r,1);
-    ctx.fillStyle='#555770';ctx.font='10px sans-serif';
-    ctx.fillText(i*25+'%',2,y+4);ctx.fillStyle='rgba(0,229,255,0.08)';
+    ctx.fillStyle='rgba(0,0,0,0.05)';ctx.fillRect(pad.l,y,W-pad.l-pad.r,1);
+    ctx.fillStyle='#aab';ctx.font='10px sans-serif';ctx.fillText(i*25+'%',2,y+4);
   }
   keys.forEach((k,i)=>{
     const x=pad.l+(W-pad.l-pad.r)*i/keys.length+(W-pad.l-pad.r)/(keys.length*2)-bw/2;
-    const bh=(vals[i]/maxV)*(H-pad.t-pad.b);
-    const y=pad.t+(H-pad.t-pad.b)-bh;
+    const bh=(vals[i]/100)*(H-pad.t-pad.b);const y=pad.t+(H-pad.t-pad.b)-bh;
     const grad=ctx.createLinearGradient(0,y,0,y+bh);
-    grad.addColorStop(0,'#00e5ff');grad.addColorStop(1,'#ff4db8');
-    ctx.fillStyle=grad;
-    ctx.beginPath();ctx.roundRect(x,y,bw,bh,3);ctx.fill();
-    const d=parseD(k);
-    ctx.fillStyle='#888aaa';ctx.font='9px sans-serif';
+    grad.addColorStop(0,'#4ecdc4');grad.addColorStop(1,'#a8e6cf');
+    ctx.fillStyle=grad;ctx.beginPath();ctx.roundRect(x,y,bw,bh,3);ctx.fill();
+    const d=parseD(k);ctx.fillStyle='#aab';ctx.font='9px sans-serif';
     ctx.fillText(`${d.getMonth()+1}/${d.getDate()}`,x-2,H-4);
-  });
-}
-
-function renderRecList(keys,data){
-  const el=document.getElementById('rec-list');el.innerHTML='';
-  keys.forEach(k=>{
-    const r=data[k];if(!r)return;
-    const d=parseD(k);
-    const item=document.createElement('div');item.className='rec-item';
-    const sc=r.pct>=80?'#00e5ff':r.pct>=50?'#ff9a3c':'#606080';
-    const tags=r.tasks?r.tasks.map(t=>`<span class="rec-tag ${t.done?'done':''}">${t.done?'✓ ':''}${t.name}</span>`).join(''):'';
-    item.innerHTML=`<div class="rec-date"><div class="rec-mo">${d.getMonth()+1}月</div><div class="rec-day">${d.getDate()}</div><div class="rec-wd">${WEEKDAYS[d.getDay()]}</div></div><div class="rec-info"><div class="rec-tags">${tags}</div></div><div class="rec-score" style="color:${sc}">${r.pct}%</div>`;
-    el.appendChild(item);
   });
 }
 
 document.getElementById('full-reset-btn').addEventListener('click',()=>{
   if(confirm('全ての記録を消します。\nこの操作は元に戻せません。本当にいいですか？')){
-    localStorage.removeItem(STORE_KEY);
-    taskList={};nextId=1;
-    showScreen('setup-screen');
-    initSetup();
+    localStorage.removeItem(STORE_KEY);taskList={};nextId=1;
+    showScreen('setup-screen');initSetup();
   }
 });
 
-// ===== UTILS =====
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  updateSkies();
 }
 
 window.addEventListener('resize',()=>{
