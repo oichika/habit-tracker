@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -356,9 +355,9 @@ function initSetup(){
   updateSkies();
   const data=loadData(),today=todayStr();
   // 今日の記録があってもセットアップ画面を表示（タスクはdone状態リセットして引き継ぎ）
-  const keys=Object.keys(data).filter(k=>k!=='__settings').sort();
+  const keys=Object.keys(data).filter(k=>k!=='__settings'&&k!=='__goal'&&k!=='__goalHistory').sort();
   const lastKey=keys[keys.length-1];
-  const lastTasks=lastKey&&data[lastKey].tasks?data[lastKey].tasks:[];
+  const lastTasks=lastKey&&data[lastKey]&&data[lastKey].tasks?data[lastKey].tasks:[];
   taskList={};nextId=1;
   if(lastTasks.length>0){
     lastTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
