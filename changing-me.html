@@ -95,10 +95,10 @@ html,body{height:100%;background:var(--surface);color:var(--text);font-family:'N
 .progress-bar-bg{height:6px;background:#dde6ee;border-radius:3px;overflow:hidden;}
 .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),#38b2ac);border-radius:3px;transition:width .4s;}
 .pct-label{font-size:.75rem;color:var(--muted);margin-top:4px;text-align:right;}
-.bubbles-area{flex:1;padding:8px 16px 0;display:flex;flex-wrap:wrap;gap:10px;align-content:center;justify-content:center;overflow:hidden;}
-.bubble{border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s;-webkit-tap-highlight-color:transparent;flex-shrink:0;text-align:center;padding:8px;position:relative;}
+.bubbles-area{flex:1;position:relative;overflow:hidden;}
+.bubble{border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,opacity .4s;-webkit-tap-highlight-color:transparent;text-align:center;padding:8px;position:absolute;}
 .bubble:active{transform:scale(.92);}
-.bubble.done{opacity:.28;transform:scale(.86);}
+.bubble.done{opacity:.15;pointer-events:none;}
 .bubble-text{font-size:.72rem;font-weight:700;color:#fff;line-height:1.25;word-break:break-all;max-width:88%;text-shadow:0 1px 4px rgba(0,0,0,0.4);}
 .pop-particle{position:fixed;pointer-events:none;border-radius:50%;animation:popfly .6s ease-out forwards;}
 @keyframes popfly{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
@@ -207,9 +207,6 @@ canvas{width:100%!important;}
     <img class="sky-img" id="sky2-top5" src="top5.jpg" alt="">
     <img class="sky-img" id="sky2-top6" src="top6.jpg" alt="">
     <div class="header-overlay"></div>
-    <div class="header-top">HABIT TRACKER<br>ANYTIME</div>
-    <div class="header-title"><span class="changing">Changing </span><span class="me">Me</span></div>
-    <div class="header-sub">ひとつひとつの選択が<br>明日のわたしをつくる</div>
     <div class="streak-wrap"><div class="streak-pill" id="streak-badge">🌿 0日連続</div></div>
   </div>
   <div class="date-bar" id="date-bar"></div>
@@ -426,35 +423,41 @@ function renderTracker(){
   document.getElementById('date-bar').textContent=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${WEEKDAYS[d.getDay()]}）`;
   renderBubbles();updateProgress();updateStreak();
 }
-
 function renderBubbles(){
   const area=document.getElementById('bubbles-area');area.innerHTML='';
   const ids=Object.keys(taskList);const n=ids.length;
   if(!n)return;
-  const areaW=area.offsetWidth||window.innerWidth-32;
-  const areaH=area.offsetHeight||(window.innerHeight*0.48);
-  const cols=n<=2?n:n<=4?2:n<=6?3:n<=8?4:5;
-  const rows=Math.ceil(n/cols);
-  const gap=10;
-  const maxW=Math.floor((areaW-(cols-1)*gap)/cols);
-  const maxH=Math.floor((areaH-(rows-1)*gap)/rows);
-  const baseSize=Math.min(maxW,maxH,148);
-  const patterns={
-    1:[1.0],2:[1.0,0.85],3:[1.0,0.78,0.90],
-    4:[1.0,0.78,0.88,0.68],
-    5:[1.0,0.70,0.88,0.65,0.92],
-    6:[0.95,0.72,0.88,0.65,0.82,0.78],
-    7:[0.95,0.72,0.88,0.65,0.82,0.78,0.9],
-    8:[0.9,0.70,0.85,0.62,0.80,0.75,0.88,0.68],
-    9:[0.9,0.70,0.85,0.62,0.80,0.75,0.88,0.68,0.78],
-    10:[0.88,0.68,0.82,0.60,0.78,0.72,0.86,0.65,0.76,0.70],
-  };
- const addSizes=[0.82,0.72,0.88,0.68,0.92,0.75,0.65];
-  const pat=ids.map(id=>{
+  const areaW=area.offsetWidth||window.innerWidth;
+  const areaH=area.offsetHeight||(window.innerHeight*0.52);
+  const baseLarge=Math.min(areaW,areaH)*0.32;
+  const addSizes=[0.82,0.72,0.88,0.68,0.92,0.75,0.65];
+  const szMap=ids.map(id=>{
     const name=taskList[id].name.trim()||'';
-    if(['ストレッチ','寝る前に今日できたことを見直す','今日の自分をほめる'].includes(name))return 1.0;
-    return addSizes[Math.floor(Math.random()*addSizes.length)];
+    if(['ストレッチ','寝る前に今日できたことを見直す','今日の自分をほめる'].includes(name))
+      return Math.max(80,Math.round(baseLarge));
+    const hash=name.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+    const ratio=addSizes[hash%addSizes.length];
+    return Math.max(55,Math.round(baseLarge*ratio));
   });
+  ids.forEach((id,i)=>{
+    const t=taskList[id];
+    const sz=szMap[i];
+    const maxX=Math.max(0,areaW-sz);
+    const maxY=Math.max(0,areaH-sz);
+    const x=Math.floor(Math.random()*maxX);
+    const y=Math.floor(Math.random()*maxY);
+    const div=document.createElement('div');
+    div.className='bubble'+(t.done?' done':'');
+    div.style.cssText=`width:${sz}px;height:${sz}px;left:${x}px;top:${y}px;background:${BUBBLE_COLORS[i%BUBBLE_COLORS.length]};box-shadow:0 4px 16px rgba(0,0,0,0.18);`;
+    div.dataset.id=id;
+    const span=document.createElement('span');span.className='bubble-text';
+    span.style.fontSize=sz<72?'.58rem':sz<92?'.65rem':'.73rem';
+    span.textContent=t.name||'タスク';
+    div.appendChild(span);
+    div.addEventListener('click',()=>openMemo(id,div));
+    area.appendChild(div);
+  });
+}
   ids.forEach((id,i)=>{
     const t=taskList[id];
     const sz=Math.max(60,Math.round(baseSize*pat[i]));
