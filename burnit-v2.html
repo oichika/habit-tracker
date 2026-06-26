@@ -569,15 +569,14 @@ function showDonePopup(){
 
 document.getElementById('done-popup-btn').addEventListener('click',()=>{
   document.getElementById('done-popup').classList.remove('active');
+  const currentTasks=Object.values(taskList).map(t=>({name:t.name,done:false}));
   showScreen('setup-screen');
-  // ★ワンタイムリセット：今日のデータを削除（テスト用・1回だけ実行）
-(function(){
-  const d=loadData();
-  const today=todayStr();
-  if(d[today]){delete d[today];saveData(d);}
-})();
-
-initSetup();
+  taskList={};nextId=1;
+  currentTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
+  renderTaskList();
+  const d2=loadData();
+  document.getElementById('goal-input').value=d2['__goal']||'';
+  renderGoalHistory();
 });
 
 function showReflectPopup(streak){
