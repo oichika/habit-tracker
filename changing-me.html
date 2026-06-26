@@ -449,8 +449,13 @@ function renderBubbles(){
     9:[0.9,0.70,0.85,0.62,0.80,0.75,0.88,0.68,0.78],
     10:[0.88,0.68,0.82,0.60,0.78,0.72,0.86,0.65,0.76,0.70],
   };
- const sizes=[1.0,0.82,0.92,0.72,0.88,0.68,0.95,0.75,0.85,0.65];
-  const pat=ids.map(id=>{const name=taskList[id].name||'';const hash=name.split('').reduce((a,c)=>a+c.charCodeAt(0),0);return sizes[hash%sizes.length];});
+ const addSizes=[0.82,0.72,0.88,0.68,0.92,0.75,0.65];
+  const pat=ids.map(id=>{
+    const name=taskList[id].name||'';
+    if(DEFAULT_TASKS.includes(name))return 1.0;
+    const hash=name.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+    return addSizes[hash%addSizes.length];
+  });
   ids.forEach((id,i)=>{
     const t=taskList[id];
     const sz=Math.max(60,Math.round(baseSize*pat[i]));
@@ -595,8 +600,15 @@ function showDonePopup(){
 }
 document.getElementById('done-popup-btn').addEventListener('click',()=>{
   document.getElementById('done-popup').classList.remove('active');
+  const currentTasks=Object.values(taskList).map(t=>({name:t.name,done:false}));
   showScreen('setup-screen');
-  initSetup();
+  taskList={};nextId=1;
+  currentTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
+  renderTaskList();
+  const d2=loadData();
+  document.getElementById('goal-input').value=d2['__goal']||'';
+  renderGoalHistory();
+  updateSkies();
 });
 
 function showReflectPopup(streak){
