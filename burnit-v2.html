@@ -15,12 +15,14 @@
   --cyan:#00e5ff;--pink:#ff4db8;--orange:#ff9a3c;--yellow:#ffe234;--green:#39ff14;--purple:#c77dff;
   --text:#f0f0ff;--muted:#888aaa;
 }
-html,body{height:100%;max-height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;overscroll-behavior:none;overflow:hidden;}
-.screen{display:none;min-height:100vh;padding:0 0 40px;}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;overscroll-behavior:none;}
+.screen{display:none;padding:0 0 40px;}
+#setup-screen{min-height:100vh;}
+#history-screen{min-height:100vh;}
 .screen.active{display:block;}
 
 /* ===== SETUP ===== */
-#setup-screen{padding:24px 20px 60px;}
+#setup-screen{padding:24px 20px 60px;overflow-y:auto;}
 .setup-header{text-align:center;padding:20px 0 28px;}
 .setup-header .logo{font-family:'Nunito',sans-serif;font-size:2.6rem;font-weight:900;
   background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;}
@@ -171,7 +173,7 @@ canvas{width:100%!important;}
   </div>
   <div class="goal-wrap">
     <div class="goal-label">どんな自分になりたい？</div>
-    <textarea class="goal-input" id="goal-input" rows="2" placeholder="例）毎朝スッキリ起きられる自分　健康的な習慣が自然にできる自分"></textarea>
+    <textarea class="goal-input" id="goal-input" rows="2" placeholder="例）健康的な習慣が自然にできる自分&#10;12月15日まで－5㎏、好きな服を着てお祝いする！"></textarea>
     <button class="goal-history-btn" id="goal-history-btn">📖 過去の目標を見る ▼</button>
     <div class="goal-history-list" id="goal-history-list"></div>
   </div>
