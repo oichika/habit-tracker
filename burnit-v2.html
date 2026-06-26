@@ -38,6 +38,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
   color:var(--pink);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .add-btn{width:100%;padding:12px;background:rgba(0,229,255,0.08);border:1px dashed rgba(0,229,255,0.3);
   border-radius:10px;color:var(--cyan);font-size:.9rem;cursor:pointer;font-family:inherit;margin-bottom:24px;}
+.back-to-today-btn{width:100%;padding:14px;border-radius:14px;border:1px solid var(--cyan);background:transparent;color:var(--cyan);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:10px;}
 .start-btn{width:100%;padding:18px;border-radius:14px;border:none;cursor:pointer;
   background:linear-gradient(135deg,var(--cyan),var(--pink));
   font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:#0f0f1a;letter-spacing:2px;}
@@ -180,6 +181,7 @@ canvas{width:100%!important;}
   <div class="section-label">今日のタスクを設定</div>
   <div class="task-list" id="task-list"></div>
   <button class="add-btn" id="add-btn">＋ タスクを追加</button>
+  <button class="back-to-today-btn" id="back-to-today-btn" style="display:none;">→ 今日のタスクに戻る</button>
   <button class="start-btn" id="start-btn">🔥 START</button>
 </div>
 
@@ -381,6 +383,11 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   // 最後の入力欄にフォーカス
   const inputs=document.querySelectorAll('.task-row input');
   if(inputs.length)inputs[inputs.length-1].focus();
+});
+
+document.getElementById('back-to-today-btn').addEventListener('click',()=>{
+  showScreen('tracker-screen');
+  renderTracker();
 });
 
 document.getElementById('start-btn').addEventListener('click',()=>{
