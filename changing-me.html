@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,25 +25,17 @@ html,body{height:100%;background:var(--surface);color:var(--text);font-family:'N
 .sky-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
 .sky-img.active{display:block;}
 .header-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,0.18) 0%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.22) 100%);}
-.header-top{position:absolute;top:14px;left:18px;font-size:.52rem;letter-spacing:.45em;color:rgba(255,255,255,0.8);font-weight:300;line-height:1.8;text-transform:uppercase;}
-.header-title{position:absolute;bottom:30px;left:16px;line-height:1;}
-.header-title .changing{font-family:'Kalam',cursive;font-size:2rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.3);}
-.header-title .me{font-family:'Kalam',cursive;font-size:2.4rem;color:var(--lemon);text-shadow:0 2px 8px rgba(0,0,0,0.3);}
-.header-sub{position:absolute;bottom:10px;right:16px;text-align:right;font-size:.68rem;color:rgba(255,255,255,0.9);line-height:1.7;text-shadow:0 1px 4px rgba(0,0,0,0.4);}
 .streak-wrap{position:absolute;top:14px;right:16px;}
 .streak-pill{background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:5px 12px;font-size:.75rem;color:#fff;}
 
 /* GOAL */
 .goal-wrap{margin-bottom:20px;}
 .goal-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
-.goal-input{width:100%;background:#fff;border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;resize:none;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.goal-input{width:100%;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;resize:none;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .goal-input:focus{border-color:var(--teal);}
 .goal-input::placeholder{color:#aab;}
-.goal-history-btn{background:none;border:none;color:var(--teal);font-size:.78rem;cursor:pointer;
-  padding:6px 0;font-family:inherit;display:flex;align-items:center;gap:4px;margin-top:4px;}
-.goal-history-list{display:none;background:#fff;border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;margin-top:6px;max-height:180px;overflow-y:auto;}
+.goal-history-btn{background:none;border:none;color:var(--teal);font-size:.78rem;cursor:pointer;padding:6px 0;font-family:inherit;display:flex;align-items:center;gap:4px;margin-top:4px;}
+.goal-history-list{display:none;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-top:6px;max-height:180px;overflow-y:auto;}
 .goal-history-list.open{display:block;}
 .goal-history-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
 .goal-history-item:last-child{border-bottom:none;}
@@ -51,28 +44,20 @@ html,body{height:100%;background:var(--surface);color:var(--text);font-family:'N
 .goal-history-text.current{color:var(--teal);font-weight:700;}
 
 /* DONE POPUP */
-#done-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(26,42,74,0.75);
-  align-items:center;justify-content:center;padding:24px;}
+#done-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(26,42,74,0.75);align-items:center;justify-content:center;padding:24px;}
 #done-popup.active{display:flex;}
-.done-popup-card{background:linear-gradient(135deg,#fff,#f0f8f7);border-radius:24px;padding:32px 24px;
-  text-align:center;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(78,205,196,0.2);}
+.done-popup-card{background:linear-gradient(135deg,#fff,#f0f8f7);border-radius:24px;padding:32px 24px;text-align:center;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(78,205,196,0.2);}
 .done-popup-emoji{font-size:3rem;margin-bottom:12px;}
 .done-popup-msg{font-size:1.2rem;font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:24px;}
-.done-popup-btn{padding:14px 40px;border-radius:30px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--teal),#38b2ac);
-  font-family:'Kalam',cursive;font-size:1rem;color:#fff;box-shadow:0 4px 14px rgba(78,205,196,0.3);}
+.done-popup-btn{padding:14px 40px;border-radius:30px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),#38b2ac);font-family:'Kalam',cursive;font-size:1rem;color:#fff;box-shadow:0 4px 14px rgba(78,205,196,0.3);}
 
 /* REFLECT POPUP */
-#reflect-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(26,42,74,0.75);
-  align-items:center;justify-content:center;padding:24px;}
+#reflect-popup{display:none;position:fixed;inset:0;z-index:8000;background:rgba(26,42,74,0.75);align-items:center;justify-content:center;padding:24px;}
 #reflect-popup.active{display:flex;}
-.reflect-card{background:linear-gradient(135deg,#fff,#f0f8f7);border-radius:24px;padding:32px 24px;
-  text-align:center;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(78,205,196,0.2);}
+.reflect-card{background:linear-gradient(135deg,#fff,#f0f8f7);border-radius:24px;padding:32px 24px;text-align:center;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(78,205,196,0.2);}
 .reflect-day{font-family:'Kalam',cursive;font-size:3rem;color:var(--teal);}
 .reflect-msg{font-size:1.05rem;font-weight:700;color:var(--navy);margin:12px 0 24px;line-height:1.7;}
-.reflect-btn{padding:14px 40px;border-radius:30px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,#ffd89b,#f9b44e);
-  font-family:'Kalam',cursive;font-size:1rem;color:#fff;}
+.reflect-btn{padding:14px 40px;border-radius:30px;border:none;cursor:pointer;background:linear-gradient(135deg,#ffd89b,#f9b44e);font-family:'Kalam',cursive;font-size:1rem;color:#fff;}
 
 /* SETUP */
 #setup-screen{padding:0 0 60px;}
@@ -98,7 +83,7 @@ html,body{height:100%;background:var(--surface);color:var(--text);font-family:'N
 .bubbles-area{flex:1;position:relative;overflow:hidden;}
 .bubble{border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,opacity .4s;-webkit-tap-highlight-color:transparent;text-align:center;padding:8px;position:absolute;}
 .bubble:active{transform:scale(.92);}
-.bubble.done{opacity:.15;pointer-events:none;}
+.bubble.done{opacity:.25;}
 .bubble-text{font-size:.72rem;font-weight:700;color:#fff;line-height:1.25;word-break:break-all;max-width:88%;text-shadow:0 1px 4px rgba(0,0,0,0.4);}
 .pop-particle{position:fixed;pointer-events:none;border-radius:50%;animation:popfly .6s ease-out forwards;}
 @keyframes popfly{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
@@ -129,14 +114,12 @@ html,body{height:100%;background:var(--surface);color:var(--text);font-family:'N
 .hist-mode-row{display:flex;gap:6px;margin-bottom:14px;}
 .hist-mode-btn{flex:1;padding:9px 0;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.78rem;cursor:pointer;font-family:inherit;}
 .hist-mode-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(78,205,196,0.08);}
-/* タスク別タブ */
 .task-tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px;}
 .task-tabs::-webkit-scrollbar{display:none;}
 .task-tab{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.78rem;cursor:pointer;font-family:inherit;white-space:nowrap;}
 .task-tab.active{border-color:var(--teal);color:var(--teal);background:rgba(78,205,196,0.1);}
 .chart-wrap{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 canvas{width:100%!important;}
-/* ログリスト */
 .log-list{display:flex;flex-direction:column;gap:8px;}
 .log-item{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .log-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
@@ -144,7 +127,6 @@ canvas{width:100%!important;}
 .log-tag{font-size:.68rem;padding:2px 8px;border-radius:20px;background:rgba(78,205,196,0.12);color:var(--teal);}
 .log-memo{font-size:.88rem;color:var(--text);line-height:1.6;}
 .log-no-memo{font-size:.82rem;color:#bbc;font-style:italic;}
-/* 日別リスト */
 .rec-list{display:flex;flex-direction:column;gap:8px;}
 .rec-item{background:#fff;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .rec-date{text-align:center;min-width:36px;}
@@ -181,7 +163,6 @@ canvas{width:100%!important;}
     <img class="sky-img" id="sky-top5" src="top5.jpg" alt="">
     <img class="sky-img" id="sky-top6" src="top6.jpg" alt="">
     <div class="header-overlay"></div>
-   
   </div>
   <div class="setup-body">
     <div class="goal-wrap">
@@ -248,23 +229,19 @@ canvas{width:100%!important;}
     <img class="sky-img" id="sky3-top5" src="top5.jpg" alt="">
     <img class="sky-img" id="sky3-top6" src="top6.jpg" alt="">
     <div class="header-overlay"></div>
-    <div class="header-title" style="bottom:14px;"><span class="changing" style="font-size:1.5rem;">Changing </span><span class="me" style="font-size:1.8rem;">Me</span></div>
+    <div style="position:absolute;bottom:14px;left:16px;font-family:'Kalam',cursive;font-size:1.8rem;color:#eef000;text-shadow:0 2px 8px rgba(0,0,0,0.3);">Changing Me</div>
   </div>
   <div class="history-body">
     <div class="history-header">
       <div class="history-title">My Record</div>
       <button class="back-btn" id="back-btn">← 戻る</button>
     </div>
-    <!-- 表示モード切り替え -->
     <div class="hist-mode-row">
       <button class="hist-mode-btn active" data-mode="log">行動ログ</button>
       <button class="hist-mode-btn" data-mode="daily">日別</button>
     </div>
-    <!-- 行動ログモード用タスクタブ -->
     <div class="task-tabs" id="task-tabs" style="display:flex;"></div>
-    <!-- チャート（日別モード用） -->
     <div class="chart-wrap" id="chart-wrap" style="display:none;"><canvas id="hist-chart" height="140"></canvas></div>
-    <!-- リスト -->
     <div id="log-list" class="log-list"></div>
     <div id="rec-list" class="rec-list" style="display:none;"></div>
     <div class="reset-wrap">
@@ -327,15 +304,14 @@ function saveData(d){localStorage.setItem(STORE_KEY,JSON.stringify(d));}
 function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 
-// 時間帯→空画像
 function getSkyId(prefix){
   const h=new Date().getHours(),m=new Date().getMinutes(),t=h*60+m;
-  if(t>=210&&t<300)return prefix+'-top1';  // 3:30-5:00
-  if(t>=300&&t<420)return prefix+'-top2';  // 5:00-7:00
-  if(t>=420&&t<930)return prefix+'-top3';  // 7:00-15:30
-  if(t>=930&&t<1050)return prefix+'-top4'; // 15:30-17:30
-  if(t>=1050&&t<1140)return prefix+'-top5';// 17:30-19:00
-  return prefix+'-top6';                   // 19:00-3:30
+  if(t>=210&&t<300)return prefix+'-top1';
+  if(t>=300&&t<420)return prefix+'-top2';
+  if(t>=420&&t<930)return prefix+'-top3';
+  if(t>=930&&t<1050)return prefix+'-top4';
+  if(t>=1050&&t<1140)return prefix+'-top5';
+  return prefix+'-top6';
 }
 function updateSkies(){
   ['sky','sky2','sky3'].forEach(p=>{
@@ -345,22 +321,19 @@ function updateSkies(){
   });
 }
 
-// ===== SETUP =====
 function initSetup(){
   updateSkies();
   const data=loadData(),today=todayStr();
-  // 今日の記録があってもセットアップ画面を表示（タスクはdone状態リセットして引き継ぎ）
   const keys=Object.keys(data).filter(k=>k!=='__settings'&&k!=='__goal'&&k!=='__goalHistory').sort();
   const lastKey=keys[keys.length-1];
   const lastTasks=lastKey&&data[lastKey]&&data[lastKey].tasks?data[lastKey].tasks:[];
   taskList={};nextId=1;
- if(lastTasks.length>0){
+  if(lastTasks.length>0){
     lastTasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:false};});
   }else{
     DEFAULT_TASKS.forEach(name=>{const id='t'+nextId++;taskList[id]={name,done:false};});
   }
   renderTaskList();
-  // 目標を復元
   const d2=loadData();
   document.getElementById('goal-input').value=d2['__goal']||'';
   renderGoalHistory();
@@ -416,13 +389,13 @@ document.getElementById('start-btn').addEventListener('click',()=>{
   showScreen('tracker-screen');renderTracker();
 });
 
-// ===== TRACKER =====
 function renderTracker(){
   updateSkies();
   const d=new Date();
   document.getElementById('date-bar').textContent=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${WEEKDAYS[d.getDay()]}）`;
   renderBubbles();updateProgress();updateStreak();
 }
+
 function renderBubbles(){
   const area=document.getElementById('bubbles-area');area.innerHTML='';
   const ids=Object.keys(taskList);const n=ids.length;
@@ -433,11 +406,9 @@ function renderBubbles(){
   const addSizes=[0.82,0.72,0.88,0.68,0.92,0.75,0.65];
   const szMap=ids.map(id=>{
     const name=taskList[id].name.trim()||'';
-    if(['ストレッチ','寝る前に今日できたことを見直す','今日の自分をほめる'].includes(name))
-      return Math.max(80,Math.round(baseLarge));
+    if(DEFAULT_TASKS.includes(name))return Math.max(80,Math.round(baseLarge));
     const hash=name.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
-    const ratio=addSizes[hash%addSizes.length];
-    return Math.max(55,Math.round(baseLarge*ratio));
+    return Math.max(55,Math.round(baseLarge*addSizes[hash%addSizes.length]));
   });
   ids.forEach((id,i)=>{
     const t=taskList[id];
@@ -456,12 +427,12 @@ function renderBubbles(){
     div.appendChild(span);
     div.addEventListener('click',()=>openMemo(id,div));
     area.appendChild(div);
-  
-// ===== MEMO =====
-function openMemo(id, el){
+  });
+}
+
+function openMemo(id,el){
   pendingMemoId=id;
   document.getElementById('memo-task-name').textContent=taskList[id].name;
-  document.getElementById('memo-input').value='';
   const data=loadData();const today=todayStr();
   const existingMemo=data[today]&&data[today].memos?data[today].memos[taskList[id].name]||'':'';
   document.getElementById('memo-input').value=existingMemo;
@@ -480,13 +451,11 @@ function saveMemoAndDone(memo){
   const id=pendingMemoId;if(!id)return;
   const wasAlreadyDone=taskList[id].done;
   taskList[id].done=true;
-  // メモをlocalStorageに保存
   const data=loadData();const today=todayStr();
   if(!data[today])data[today]={done:false,pct:0,tasks:[],memos:{}};
   if(!data[today].memos)data[today].memos={};
   data[today].memos[taskList[id].name]=memo;
   saveData(data);
-  // バブルにdoneを反映
   const el=document.querySelector(`.bubble[data-id="${id}"]`);
   if(el){el.classList.add('done');if(!wasAlreadyDone)popEffect(el);}
   updateProgress();
@@ -494,12 +463,9 @@ function saveMemoAndDone(memo){
 }
 
 document.getElementById('memo-save').addEventListener('click',()=>{
-  const memo=document.getElementById('memo-input').value.trim();
-  saveMemoAndDone(memo);
+  saveMemoAndDone(document.getElementById('memo-input').value.trim());
 });
-document.getElementById('memo-skip').addEventListener('click',()=>{
-  saveMemoAndDone('');
-});
+document.getElementById('memo-skip').addEventListener('click',()=>{saveMemoAndDone('');});
 document.getElementById('memo-overlay').addEventListener('click',(e)=>{
   if(e.target===document.getElementById('memo-overlay'))closeMemo();
 });
@@ -539,12 +505,12 @@ function calcStreak(data){
 }
 
 const DONE_MESSAGES=[
- {emoji:'🌟',msg:'今日も動いた。それだけで十分すごい。'},
+  {emoji:'🌟',msg:'今日も動いた。それだけで十分すごい。'},
   {emoji:'👏',msg:'続けてエライ！自分を褒めてあげて。'},
   {emoji:'💭',msg:'動く前の自分と今の自分、どっちが好き？'},
-  {emoji:'💪',msg:'行動し続けている自分を称えよう‼'},
+  {emoji:'💪',msg:'行動し続けている自分を称えよう!'},
   {emoji:'🌙',msg:'今日もよく頑張りました！おやすみなさい！'},
- {emoji:'✨',msg:'あなたサイコー、また明日！'}
+  {emoji:'✨',msg:'あなたサイコー、また明日！'},
 ];
 const REFLECT_MILESTONES=[15,30,50,70,90,100];
 
@@ -552,7 +518,6 @@ document.getElementById('done-btn').addEventListener('click',()=>{
   const ids=Object.keys(taskList);const done=ids.filter(id=>taskList[id].done).length;
   const pct=ids.length?Math.round(done/ids.length*100):0;
   const data=loadData();const today=todayStr();
-  // 目標を保存（変わった時だけ履歴に追加）
   const goalVal=document.getElementById('goal-input').value.trim();
   if(goalVal){
     const prevGoal=data['__goal']||'';
@@ -583,6 +548,7 @@ function showDonePopup(){
   document.getElementById('done-popup-msg').textContent=m.msg;
   document.getElementById('done-popup').classList.add('active');
 }
+
 document.getElementById('done-popup-btn').addEventListener('click',()=>{
   document.getElementById('done-popup').classList.remove('active');
   const currentTasks=Object.values(taskList).map(t=>({name:t.name,done:false}));
@@ -619,7 +585,6 @@ function loadTodayFromRecord(rec){
   rec.tasks.forEach(t=>{const id='t'+nextId++;taskList[id]={name:t.name,done:t.done};});
 }
 
-// ===== MILESTONE =====
 function checkMilestone(streak){
   if(!MILESTONES.includes(streak))return;
   document.getElementById('ms-day').textContent=streak+'日達成！';
@@ -641,7 +606,7 @@ function checkMilestone(streak){
     85:'85日。もうゴールじゃなくて、これがあなたの生き方になってる。',
     90:'3ヶ月。動き続けた自分と、少し話してみて。何が変わった？',
     95:'95日。あと5日、一緒に行こう。',
-  　100:'100日分の行動が、今日のあなたをつくった。本当によくやった🎉'
+    100:'100日分の行動が、今日のあなたをつくった。本当によくやった🎉',
   };
   document.getElementById('ms-msg').textContent=msgs[streak]||`${streak}日達成！`;
   document.getElementById('milestone-overlay').classList.add('active');
@@ -664,10 +629,8 @@ function fireConfetti(level){
   }
 }
 
-// ===== HISTORY =====
 function renderHistory(){
   updateSkies();
-  // モード切り替えボタン
   document.querySelectorAll('.hist-mode-btn').forEach(b=>{
     b.classList.toggle('active',b.dataset.mode===histMode);
   });
@@ -690,15 +653,12 @@ document.querySelectorAll('.hist-mode-btn').forEach(b=>{
   b.addEventListener('click',()=>{histMode=b.dataset.mode;renderHistory();});
 });
 
-// 行動ログモード
 function renderLogMode(){
   const data=loadData();
-  // 全タスク名収集
   const taskNames=new Set();
   Object.values(data).forEach(d=>{
     if(d.tasks)d.tasks.forEach(t=>{if(t.done)taskNames.add(t.name);});
   });
-  // タブ描画
   const tabEl=document.getElementById('task-tabs');tabEl.innerHTML='';
   const allTab=document.createElement('button');
   allTab.className='task-tab'+(activeTaskTab==='all'?' active':'');
@@ -712,9 +672,8 @@ function renderLogMode(){
     btn.addEventListener('click',()=>{activeTaskTab=name;renderLogMode();});
     tabEl.appendChild(btn);
   });
-  // ログ一覧
   const logEl=document.getElementById('log-list');logEl.innerHTML='';
-  const allKeys=Object.keys(data).filter(k=>k!=='__settings').sort().reverse();
+  const allKeys=Object.keys(data).filter(k=>k!=='__settings'&&k!=='__goal'&&k!=='__goalHistory').sort().reverse();
   let hasLog=false;
   allKeys.forEach(dateKey=>{
     const rec=data[dateKey];if(!rec||!rec.tasks)return;
@@ -736,10 +695,9 @@ function renderLogMode(){
   }
 }
 
-// 日別モード
 function renderDailyMode(){
   const data=loadData();
-  const allKeys=Object.keys(data).filter(k=>k!=='__settings').sort();
+  const allKeys=Object.keys(data).filter(k=>k!=='__settings'&&k!=='__goal'&&k!=='__goalHistory').sort();
   drawChart(allKeys,data);
   const recEl=document.getElementById('rec-list');recEl.innerHTML='';
   allKeys.slice().reverse().forEach(k=>{
