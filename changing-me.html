@@ -599,8 +599,7 @@ document.getElementById('done-popup-btn').addEventListener('click',()=>{
 function showReflectPopup(streak){
   document.getElementById('reflect-day').textContent=streak+'日！';
   document.getElementById('reflect-msg').textContent=
-    streak===100?'始めた時の自分と今の自分、
-どんな風に変わった？':'始めた時と変わった？';
+    streak===100?'始めた時の自分と今の自分、どんな風に変わった？':'始めた時と変わった？';
   document.getElementById('reflect-popup').classList.add('active');
 }
 document.getElementById('reflect-btn').addEventListener('click',()=>{
