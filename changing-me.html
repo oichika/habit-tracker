@@ -468,10 +468,14 @@ function renderBubbles(){
 
 // ===== MEMO =====
 function openMemo(id, el){
-  if(taskList[id].done)return;
   pendingMemoId=id;
   document.getElementById('memo-task-name').textContent=taskList[id].name;
   document.getElementById('memo-input').value='';
+  const data=loadData();const today=todayStr();
+  const existingMemo=data[today]&&data[today].memos?data[today].memos[taskList[id].name]||'':'';
+  document.getElementById('memo-input').value=existingMemo;
+  const isEdit=taskList[id].done;
+  document.getElementById('memo-save').textContent=isEdit?'更新する':'保存する';
   document.getElementById('memo-overlay').classList.add('active');
   setTimeout(()=>document.getElementById('memo-input').focus(),300);
 }
@@ -483,6 +487,7 @@ function closeMemo(){
 
 function saveMemoAndDone(memo){
   const id=pendingMemoId;if(!id)return;
+  const wasAlreadyDone=taskList[id].done;
   taskList[id].done=true;
   // メモをlocalStorageに保存
   const data=loadData();const today=todayStr();
@@ -492,7 +497,7 @@ function saveMemoAndDone(memo){
   saveData(data);
   // バブルにdoneを反映
   const el=document.querySelector(`.bubble[data-id="${id}"]`);
-  if(el){el.classList.add('done');popEffect(el);}
+  if(el){el.classList.add('done');if(!wasAlreadyDone)popEffect(el);}
   updateProgress();
   closeMemo();
 }
