@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -70,6 +69,7 @@ html,body{height:100%;background:var(--surface);color:var(--text);font-family:'N
 .task-row input[type=text]::placeholder{color:#aab;}
 .del-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,107,107,0.12);border:none;color:var(--coral);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .add-btn{width:100%;padding:12px;background:rgba(78,205,196,0.08);border:1px dashed rgba(78,205,196,0.4);border-radius:10px;color:var(--teal);font-size:.9rem;cursor:pointer;font-family:inherit;margin-bottom:20px;}
+.back-to-today-btn{width:100%;padding:12px;border-radius:14px;border:1px solid var(--teal);background:transparent;color:var(--teal);font-family:'Kalam',cursive;font-size:1rem;cursor:pointer;margin-bottom:10px;}
 .start-btn{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal),#38b2ac);font-family:'Kalam',cursive;font-size:1.4rem;color:#fff;letter-spacing:2px;box-shadow:0 4px 16px rgba(78,205,196,0.35);}
 
 /* TRACKER */
@@ -174,6 +174,7 @@ canvas{width:100%!important;}
     <div class="section-label">今日のタスクを設定</div>
     <div class="task-list" id="task-list"></div>
     <button class="add-btn" id="add-btn">＋ タスクを追加</button>
+    <button class="back-to-today-btn" id="back-to-today-btn" style="display:none;">→ 今日のタスクに戻る</button>
     <button class="start-btn" id="start-btn">Start ✨</button>
   </div>
 </div>
@@ -337,6 +338,10 @@ function initSetup(){
   const d2=loadData();
   document.getElementById('goal-input').value=d2['__goal']||'';
   renderGoalHistory();
+  // 今日のタスクがあれば「戻る」ボタン表示
+  const todayData=d2[todayStr()];
+  const btn=document.getElementById('back-to-today-btn');
+  if(btn)btn.style.display=(todayData&&todayData.tasks&&todayData.tasks.length>0)?'block':'none';
 }
 
 function renderGoalHistory(){
@@ -381,6 +386,11 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   const id='t'+nextId++;taskList[id]={name:'',done:false};renderTaskList();
   const inputs=document.querySelectorAll('.task-row input');
   if(inputs.length)inputs[inputs.length-1].focus();
+});
+
+document.getElementById('back-to-today-btn').addEventListener('click',()=>{
+  showScreen('tracker-screen');
+  renderTracker();
 });
 
 document.getElementById('start-btn').addEventListener('click',()=>{
